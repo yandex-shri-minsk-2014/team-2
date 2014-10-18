@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var path = require('path');
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -11,9 +12,14 @@ app.post('/api/rooms',function(req, res, next) {
     res.send(JSON.stringify(room));
 })
 
+app.get('/:id', function(req, res) {
+  res.sendFile(path.resolve('build/index.html'));
+});
+
 io.on('connection', function(socket){
-    console.log('a user connected');
+  console.log('a user connected');
 })
+
 
 var server = http.listen(3000, function () {
 
