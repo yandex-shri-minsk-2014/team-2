@@ -1,0 +1,6 @@
+.statusbar {
+  margin-top: -100px;
+  height: 100px;
+  background-color: #3E606F;
+  position: relative;
+}

@@ -1,9 +1,15 @@
 .grid {
   display: flex;
+
+  height: 100%;
 }
 
 .grid__cell {
   width: 100%;
+
+  box-sizing: border-box;
+
+  padding-bottom: 100px;
 
   background-color: #963;
 }
