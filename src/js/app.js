@@ -24,4 +24,5 @@ socket.on('connect', function(){
     roomId: roomId,
     name: 'Вася'
   });
+  window.socket = socket;
 });
