@@ -1,0 +1,188 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'i',
+1 verbose cli   'gulp-concat-css',
+1 verbose cli   'gulp-autoprefixer',
+1 verbose cli   'gulp-csscombo',
+1 verbose cli   '--save-dev' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 warn package.json yandex-shri-minsk@0.0.0 No repository field.
+5 warn package.json yandex-shri-minsk@0.0.0 No README data
+6 verbose readDependencies using package.json deps
+7 verbose cache add [ 'gulp-concat-css', null ]
+8 verbose cache add name=undefined spec="gulp-concat-css" args=["gulp-concat-css",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'gulp-concat-css',
+9 verbose parsed url   path: 'gulp-concat-css',
+9 verbose parsed url   href: 'gulp-concat-css' }
+10 verbose cache add [ 'gulp-autoprefixer', null ]
+11 verbose cache add name=undefined spec="gulp-autoprefixer" args=["gulp-autoprefixer",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'gulp-autoprefixer',
+12 verbose parsed url   path: 'gulp-autoprefixer',
+12 verbose parsed url   href: 'gulp-autoprefixer' }
+13 verbose cache add [ 'gulp-csscombo', null ]
+14 verbose cache add name=undefined spec="gulp-csscombo" args=["gulp-csscombo",null]
+15 verbose parsed url { protocol: null,
+15 verbose parsed url   slashes: null,
+15 verbose parsed url   auth: null,
+15 verbose parsed url   host: null,
+15 verbose parsed url   port: null,
+15 verbose parsed url   hostname: null,
+15 verbose parsed url   hash: null,
+15 verbose parsed url   search: null,
+15 verbose parsed url   query: null,
+15 verbose parsed url   pathname: 'gulp-csscombo',
+15 verbose parsed url   path: 'gulp-csscombo',
+15 verbose parsed url   href: 'gulp-csscombo' }
+16 silly lockFile d2bd44ec-gulp-concat-css gulp-concat-css
+17 verbose lock gulp-concat-css /Users/egor/.npm/d2bd44ec-gulp-concat-css.lock
+18 silly lockFile 1367cca4-gulp-autoprefixer gulp-autoprefixer
+19 verbose lock gulp-autoprefixer /Users/egor/.npm/1367cca4-gulp-autoprefixer.lock
+20 silly lockFile d84842dc-gulp-csscombo gulp-csscombo
+21 verbose lock gulp-csscombo /Users/egor/.npm/d84842dc-gulp-csscombo.lock
+22 silly lockFile 1367cca4-gulp-autoprefixer gulp-autoprefixer
+23 silly lockFile 1367cca4-gulp-autoprefixer gulp-autoprefixer
+24 silly lockFile d2bd44ec-gulp-concat-css gulp-concat-css
+25 silly lockFile d2bd44ec-gulp-concat-css gulp-concat-css
+26 silly lockFile d84842dc-gulp-csscombo gulp-csscombo
+27 silly lockFile d84842dc-gulp-csscombo gulp-csscombo
+28 verbose addNamed [ 'gulp-autoprefixer', '' ]
+29 verbose addNamed [ null, '*' ]
+30 silly lockFile e459a000-gulp-autoprefixer gulp-autoprefixer@
+31 verbose lock gulp-autoprefixer@ /Users/egor/.npm/e459a000-gulp-autoprefixer.lock
+32 verbose addNamed [ 'gulp-concat-css', '' ]
+33 verbose addNamed [ null, '*' ]
+34 silly lockFile ae6935b0-gulp-concat-css gulp-concat-css@
+35 verbose lock gulp-concat-css@ /Users/egor/.npm/ae6935b0-gulp-concat-css.lock
+36 verbose addNamed [ 'gulp-csscombo', '' ]
+37 verbose addNamed [ null, '*' ]
+38 silly lockFile 240c0740-gulp-csscombo gulp-csscombo@
+39 verbose lock gulp-csscombo@ /Users/egor/.npm/240c0740-gulp-csscombo.lock
+40 silly addNameRange { name: 'gulp-autoprefixer', range: '*', hasData: false }
+41 silly addNameRange { name: 'gulp-concat-css', range: '*', hasData: false }
+42 silly addNameRange { name: 'gulp-csscombo', range: '*', hasData: false }
+43 verbose url raw gulp-csscombo
+44 verbose url resolving [ 'https://registry.npmjs.org/', './gulp-csscombo' ]
+45 verbose url resolved https://registry.npmjs.org/gulp-csscombo
+46 info trying registry request attempt 1 at 14:51:44
+47 http GET https://registry.npmjs.org/gulp-csscombo
+48 verbose url raw gulp-autoprefixer
+49 verbose url resolving [ 'https://registry.npmjs.org/', './gulp-autoprefixer' ]
+50 verbose url resolved https://registry.npmjs.org/gulp-autoprefixer
+51 info trying registry request attempt 1 at 14:51:44
+52 verbose etag "DXFECSH9IW86E0G5HPAMKTNJ0"
+53 http GET https://registry.npmjs.org/gulp-autoprefixer
+54 verbose url raw gulp-concat-css
+55 verbose url resolving [ 'https://registry.npmjs.org/', './gulp-concat-css' ]
+56 verbose url resolved https://registry.npmjs.org/gulp-concat-css
+57 info trying registry request attempt 1 at 14:51:44
+58 verbose etag "CVDHVOPF7W00M8RQ6XGOCP1A"
+59 http GET https://registry.npmjs.org/gulp-concat-css
+60 http 304 https://registry.npmjs.org/gulp-autoprefixer
+61 silly registry.get cb [ 304,
+61 silly registry.get   { date: 'Sat, 18 Oct 2014 11:51:44 GMT',
+61 silly registry.get     server: 'Apache',
+61 silly registry.get     via: '1.1 varnish',
+61 silly registry.get     'last-modified': 'Sat, 18 Oct 2014 11:51:44 GMT',
+61 silly registry.get     'cache-control': 'max-age=60',
+61 silly registry.get     etag: '"DXFECSH9IW86E0G5HPAMKTNJ0"',
+61 silly registry.get     age: '60',
+61 silly registry.get     'x-served-by': 'cache-fra1226-FRA',
+61 silly registry.get     'x-cache': 'HIT',
+61 silly registry.get     'x-cache-hits': '1',
+61 silly registry.get     'x-timer': 'S1413633104.976390,VS0,VE0',
+61 silly registry.get     vary: 'Accept',
+61 silly registry.get     'content-length': '0',
+61 silly registry.get     'keep-alive': 'timeout=10, max=50',
+61 silly registry.get     connection: 'Keep-Alive' } ]
+62 verbose etag gulp-autoprefixer from cache
+63 silly addNameRange number 2 { name: 'gulp-autoprefixer', range: '*', hasData: true }
+64 silly addNameRange versions [ 'gulp-autoprefixer',
+64 silly addNameRange   [ '0.0.1',
+64 silly addNameRange     '0.0.2',
+64 silly addNameRange     '0.0.3',
+64 silly addNameRange     '0.0.4',
+64 silly addNameRange     '0.0.5',
+64 silly addNameRange     '0.0.6',
+64 silly addNameRange     '0.0.7',
+64 silly addNameRange     '0.0.8',
+64 silly addNameRange     '0.0.9',
+64 silly addNameRange     '0.0.10',
+64 silly addNameRange     '1.0.0',
+64 silly addNameRange     '1.0.1' ] ]
+65 verbose addNamed [ 'gulp-autoprefixer', '1.0.1' ]
+66 verbose addNamed [ '1.0.1', '1.0.1' ]
+67 silly lockFile 622e4353-gulp-autoprefixer-1-0-1 gulp-autoprefixer@1.0.1
+68 verbose lock gulp-autoprefixer@1.0.1 /Users/egor/.npm/622e4353-gulp-autoprefixer-1-0-1.lock
+69 silly lockFile 622e4353-gulp-autoprefixer-1-0-1 gulp-autoprefixer@1.0.1
+70 silly lockFile 622e4353-gulp-autoprefixer-1-0-1 gulp-autoprefixer@1.0.1
+71 silly lockFile e459a000-gulp-autoprefixer gulp-autoprefixer@
+72 silly lockFile e459a000-gulp-autoprefixer gulp-autoprefixer@
+73 http 304 https://registry.npmjs.org/gulp-concat-css
+74 silly registry.get cb [ 304,
+74 silly registry.get   { date: 'Sat, 18 Oct 2014 11:51:44 GMT',
+74 silly registry.get     server: 'Apache',
+74 silly registry.get     via: '1.1 varnish',
+74 silly registry.get     'last-modified': 'Sat, 18 Oct 2014 11:51:45 GMT',
+74 silly registry.get     'cache-control': 'max-age=60',
+74 silly registry.get     etag: '"CVDHVOPF7W00M8RQ6XGOCP1A"',
+74 silly registry.get     age: '0',
+74 silly registry.get     'x-served-by': 'cache-fra1232-FRA',
+74 silly registry.get     'x-cache': 'MISS',
+74 silly registry.get     'x-cache-hits': '0',
+74 silly registry.get     'x-timer': 'S1413633104.977880,VS0,VE425',
+74 silly registry.get     vary: 'Accept',
+74 silly registry.get     'content-length': '0',
+74 silly registry.get     'keep-alive': 'timeout=10, max=50',
+74 silly registry.get     connection: 'Keep-Alive' } ]
+75 verbose etag gulp-concat-css from cache
+76 http 404 https://registry.npmjs.org/gulp-csscombo
+77 silly registry.get cb [ 404,
+77 silly registry.get   { date: 'Sat, 18 Oct 2014 11:51:45 GMT',
+77 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+77 silly registry.get     'content-type': 'application/json',
+77 silly registry.get     'cache-control': 'max-age=0',
+77 silly registry.get     'content-length': '52',
+77 silly registry.get     'accept-ranges': 'bytes',
+77 silly registry.get     via: '1.1 varnish',
+77 silly registry.get     age: '0',
+77 silly registry.get     'x-served-by': 'cache-fra1231-FRA',
+77 silly registry.get     'x-cache': 'MISS',
+77 silly registry.get     'x-cache-hits': '0',
+77 silly registry.get     'x-timer': 'S1413633104.981714,VS0,VE423',
+77 silly registry.get     'keep-alive': 'timeout=10, max=50',
+77 silly registry.get     connection: 'Keep-Alive' } ]
+78 silly lockFile 240c0740-gulp-csscombo gulp-csscombo@
+79 silly lockFile 240c0740-gulp-csscombo gulp-csscombo@
+80 error 404 'gulp-csscombo' is not in the npm registry.
+80 error 404 You should bug the author to publish it
+80 error 404 It was specified as a dependency of 'yandex-shri-minsk'
+80 error 404
+80 error 404 Note that you can also install from a
+80 error 404 tarball, folder, or http url, or git url.
+81 error System Darwin 14.0.0
+82 error command "/usr/local/bin/node" "/usr/local/bin/npm" "i" "gulp-concat-css" "gulp-autoprefixer" "gulp-csscombo" "--save-dev"
+83 error cwd /Users/egor/Documents/Yandex/team-2
+84 error node -v v0.10.26
+85 error npm -v 1.4.3
+86 error code E404
+87 verbose exit [ 1, true ]
