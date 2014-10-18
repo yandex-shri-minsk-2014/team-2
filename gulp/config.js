@@ -2,11 +2,11 @@ var dest = 'build';
 
 module.exports = {
   copyStatic: {
-    src: 'client/static/**',
-    dst: dest + '/static/'
+    src: 'src/index.html',
+    dst: dest
   },
   css: {
-    src: 'blocks/**/*.css',
+    src: 'src/blocks/**/*.css',
     concatSrc: 'index.css',
     browsers: ['last 2 versions'],
     cascade: false,
@@ -16,7 +16,7 @@ module.exports = {
     debug: true,
     extensions: ['.js'],
     bundleConfigs: [{
-      entries: __dirname + '/../client/js/app.js',
+      entries: __dirname + '/../src/js/app.js',
       dest: dest,
       outputName: 'js/app.min.js'
     }]
