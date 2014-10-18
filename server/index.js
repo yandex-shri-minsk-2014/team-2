@@ -1,9 +1,21 @@
 var express = require('express')
 var app = express()
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/../build'));
 
-var server = app.listen(3000, function () {
+app.post('/api/rooms',function(req, res, next) {
+    var hash = (Math.random()*255).toString(32).replace('.','');
+    var room = { 'id': hash};
+    res.send(JSON.stringify(room));
+})
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+})
+
+var server = http.listen(3000, function () {
 
   var host = server.address().address
   var port = server.address().port
@@ -11,3 +23,4 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port)
 
 })
+
