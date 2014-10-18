@@ -1,0 +1,11 @@
+{
+  "name": "yandex-shri-minsk",
+  "version": "0.0.0",
+  "description": "Yandex Shri Minsk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anikeychik Dmitry",
+  "license": "ISC"
+}
