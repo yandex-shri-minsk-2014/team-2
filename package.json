@@ -9,6 +9,9 @@
   "author": "Anikeychik Dmitry",
   "license": "ISC",
   "dependencies": {
-    "express": "~4.8.2"
+    "express": "^4.8.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8"
   }
 }
