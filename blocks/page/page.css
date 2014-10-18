@@ -1,15 +1,16 @@
-html {
-  height: 100%;  
+html
+{
+    height: 100%;
 }
 
-body {
-  height: 100%;
-  
-  margin: 0;
+body
+{
+    font-family: Helvetica;
 
-  padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 
-  box-sizing: border-box;
-
-  background-color: #91AA9D;
+    background-color: #91aa9d;
 }
