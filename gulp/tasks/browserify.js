@@ -31,10 +31,8 @@ gulp.task('browserify', function(callback) {
         .on('end', reportFinished);
     };
 
-    if(global.isWatching) {
-      bundler = watchify(bundler);
-      bundler.on('update', bundle);
-    }
+    bundler = watchify(bundler);
+    bundler.on('update', bundle);
 
     var reportFinished = function() {
       bundleLogger.end(bundleConfig.outputName)

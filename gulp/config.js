@@ -20,5 +20,11 @@ module.exports = {
       dest: dest,
       outputName: 'js/app.min.js'
     }]
+  },
+  supervisor: {
+    path: 'server/index.js',
+    opts: {
+      watch: ['server']
+    }
   }
 }
