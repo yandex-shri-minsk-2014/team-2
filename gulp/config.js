@@ -6,8 +6,6 @@ module.exports = {
     dst: dest
   },
   css: {
-    src: 'src/blocks/**/*.css',
-    concatSrc: 'index.css',
     browsers: ['last 2 versions'],
     cascade: false,
     dest: dest + '/css'
@@ -15,6 +13,10 @@ module.exports = {
   js: {
     clientSrc: 'src/js/**/*.js',
     serverSrc: 'server/**/*.js'
+    dest: dest + '/js'
+  },
+  html: {
+    dest: dest
   },
   browserify: {
     debug: true,
@@ -30,5 +32,9 @@ module.exports = {
     opts: {
       watch: ['server']
     }
+  },
+  tree: {
+    blocks_path: 'src/blocks',
+    pages_path: 'src/pages'
   }
 };
