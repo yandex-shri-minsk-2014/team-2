@@ -1,10 +1,6 @@
 var dest = 'build';
 
 module.exports = {
-  copyStatic: {
-    src: 'src/index.html',
-    dst: dest
-  },
   css: {
     browsers: ['last 2 versions'],
     cascade: false,
@@ -17,15 +13,6 @@ module.exports = {
   },
   html: {
     dest: dest
-  },
-  browserify: {
-    debug: true,
-    extensions: ['.js'],
-    bundleConfigs: [{
-      entries: __dirname + '/../src/js/app.js',
-      dest: dest,
-      outputName: 'js/app.min.js'
-    }]
   },
   supervisor: {
     path: 'server/index.js',
