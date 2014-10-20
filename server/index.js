@@ -28,7 +28,8 @@ io.on('connection', function(socket) {
 
       rooms[data.roomId].push({
         'userId': socket.id,
-        'name': data.name
+        'userName': data.name,
+        'userColor': 'hsl(' + (Math.random()*360).toString() + ', 40%, 60%)'
       });
 
       socket.join(data.roomId);
@@ -39,7 +40,8 @@ io.on('connection', function(socket) {
 
       rooms[roomId] = [{
         'userId': socket.id,
-        'name': data.name
+        'userName': data.name,
+        'userColor': 'hsl(' + (Math.random()*360).toString() + ', 40%, 60%)'
       }];
 
       socket.emit('changeRoom', {roomId: roomId});

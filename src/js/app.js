@@ -10,8 +10,8 @@ var usersUpdate = function(data) {
   data.forEach(function(user, index) {
     userList.append(
       $('<li class="user">')
-        .text(user.name)
-        .css('backgroundColor', colors[index % colors.length])
+        .text(user.userName)
+        .css('backgroundColor', user.userColor)
     );
   });
 };
