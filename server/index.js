@@ -17,10 +17,13 @@ app.get('/:id', function(req, res) {
 });
 
 var rooms = {};
+var users = {};
+var chats = {};
 
 io.on('connection', function(socket) {
   socket.on('userConnect', function(data) {
-    if (rooms[data.roomId] && data.roomId !== '/') {
+    data.roomId = data.roomId.substr(1);
+    if (rooms[data.roomId] && data.roomId) {
       socket.roomId = data.roomId;
 
       rooms[data.roomId].push({
@@ -31,14 +34,13 @@ io.on('connection', function(socket) {
       socket.join(data.roomId);
       io.to(data.roomId).emit('usersUpdate', rooms[data.roomId]);
     } else {
-      var roomId = (data.roomId !== '/') ? data.roomId : (Math.random()*255).toString(32).replace('.','');
+      var roomId = data.roomId || (Math.random()*255).toString(32).replace('.','');
       socket.roomId = roomId;
 
-      rooms[roomId] = [];
-      rooms[roomId].push({
+      rooms[roomId] = [{
         'userId': socket.id,
         'name': data.name
-      });
+      }];
 
       socket.emit('changeRoom', roomId)
       socket.join(roomId);
@@ -49,7 +51,7 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     socket.leave(socket.roomId);
     rooms[socket.roomId] = (rooms[socket.roomId] || []).filter(function(value){
-      return value.userId !== socket.userId;
+      return value.userId !== socket.id;
     });
     io.to(socket.roomId).emit('usersUpdate', rooms[socket.roomId]);
   });
