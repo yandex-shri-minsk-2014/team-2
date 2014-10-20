@@ -67,10 +67,10 @@
   // Environments
   "browser"       : true,     // Web Browser (window, document, etc)
   "couch"         : false,    // CouchDB
-  "devel"         : true,     // Development/debugging (alert, confirm, etc)
+  "devel"         : false,     // Development/debugging (alert, confirm, etc)
   "dojo"          : false,    // Dojo Toolkit
   "jasmine"       : false,    // Jasmine
-  "jquery"        : true,    // jQuery
+  "jquery"        : true,     // jQuery
   "mocha"         : false,    // Mocha
   "mootools"      : false,    // MooTools
   "node"          : true,     // Node.js
