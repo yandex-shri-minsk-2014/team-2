@@ -1,5 +1,4 @@
 var socket    = io();
-var colors    = ['#E8716B','#47B39D','#FFAB89','#FDBF53','#70425E'];
 var userList = $('.user-list');
 
 var users = [{name: 'Вася'}, {name: 'Петя'}];
@@ -17,7 +16,7 @@ var usersUpdate = function(data) {
 };
 
 var changeRoom = function(data) {
-  window.history.pushState(null, null, data.roomId);
+  window.history.pushState(1, document.title, data.roomId);
 };
 
 socket.on('usersUpdate', usersUpdate);
