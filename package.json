@@ -4,6 +4,7 @@
   "description": "Yandex Shri Minsk",
   "main": "index.js",
   "scripts": {
+    "lint": "gulp lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anikeychik Dmitry",
@@ -26,6 +27,7 @@
     "require-dir": "^0.1.0",
     "socket.io": "~1.1.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "precommit-hook": "latest"
   }
 }

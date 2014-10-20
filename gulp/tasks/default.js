@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('default', ['jshint', 'jscs', 'watch', 'copyStatic', 'css', 'browserify', 'supervisor']);
+gulp.task('default', ['watch', 'copyStatic', 'css', 'browserify', 'supervisor']);
