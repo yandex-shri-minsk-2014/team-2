@@ -1,0 +1,13 @@
+{
+  "preset": "yandex",
+  "excludeFiles": ["node_modules/**"],
+  "fileExtensions": [".js"],
+  "maxErrors": 5,
+
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowSpacesInFunctionExpression": {
+    "beforeOpeningRoundBrace": true
+  }
+}

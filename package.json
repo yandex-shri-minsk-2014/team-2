@@ -4,6 +4,7 @@
   "description": "Yandex Shri Minsk",
   "main": "index.js",
   "scripts": {
+    "lint": "gulp lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anikeychik Dmitry",
@@ -19,10 +20,14 @@
     "gulp-notify": "^2.0.0",
     "gulp-supervisor": "^0.1.2",
     "gulp-util": "^3.0.1",
+    "gulp-jshint": "^1.6.3",
+    "jshint-stylish": "^1.0.0",
+    "gulp-jscs": "^1.2.0",
     "pretty-hrtime": "^0.2.2",
     "require-dir": "^0.1.0",
     "socket.io": "~1.1.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "precommit-hook": "latest"
   }
 }
