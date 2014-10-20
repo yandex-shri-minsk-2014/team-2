@@ -32,5 +32,5 @@ The app should start on [http://localhost:3000/](http://localhost:3000/)
 ## Command
 
 | <img alt="dima716" src="https://avatars2.githubusercontent.com/u/8137279" width="70"> |![Egor Lipskiy](https://avatars1.githubusercontent.com/u/2931416?s=70) |<img alt="Alexander Sologub" src="https://avatars0.githubusercontent.com/u/902788" width="70"> | ![Dmitry](https://avatars1.githubusercontent.com/u/1198848?s=70) | <img alt="zheksoon" src="https://avatars0.githubusercontent.com/u/8950238" width="70"> |
-|---|
+|---|---|---|---|---|
 | dima716 | elipskiy | marvelousNinja | Semigradsky | zheksoon |
