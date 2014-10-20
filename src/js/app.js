@@ -13,10 +13,15 @@ var usersUpdate = function(data) {
         .text(user.name)
         .css('backgroundColor', colors[index % colors.length])
     );
-  })
+  });
+};
+
+var changeRoom = function(data) {
+  window.history.pushState(null, null, data.roomId);
 };
 
 socket.on('usersUpdate', usersUpdate);
+socket.on('changeRoom', changeRoom);
 
 socket.on('connect', function(){
   var roomId = window.location.pathname;

@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
         'name': data.name
       }];
 
-      socket.emit('changeRoom', roomId)
+      socket.emit('changeRoom', {roomId: roomId});
       socket.join(roomId);
       io.to(roomId).emit('usersUpdate', rooms[roomId]);
     }
