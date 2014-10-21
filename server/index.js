@@ -7,13 +7,6 @@ var path = require('path');
 
 app.use(express.static(__dirname + '/../build'));
 
-app.post('/api/rooms', function(req, res, next) {
-  var hash = (Math.random() * 255).toString(32).replace('.', '');
-  var room = {id: hash};
-  res.send(JSON.stringify(room));
-  next();
-});
-
 app.get('/:id', function(req, res) {
   res.sendFile(path.resolve('build/index.html'));
 });
