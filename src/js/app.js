@@ -1,12 +1,11 @@
-var socket    = io();
+'use strict';
+var socket = io();
 var userList = $('.user-list');
-
-var users = [{name: 'Вася'}, {name: 'Петя'}];
 
 var usersUpdate = function(data) {
   userList.empty();
 
-  data.forEach(function(user, index) {
+  data.forEach(function(user) {
     userList.append(
       $('<li class="user">')
         .text(user.userName)
@@ -22,7 +21,7 @@ var changeRoom = function(data) {
 socket.on('usersUpdate', usersUpdate);
 socket.on('changeRoom', changeRoom);
 
-socket.on('connect', function(){
+socket.on('connect', function() {
   var roomId = window.location.pathname;
   socket.emit('userConnect', {
     roomId: roomId,
