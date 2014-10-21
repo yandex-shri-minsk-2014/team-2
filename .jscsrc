@@ -4,10 +4,22 @@
   "fileExtensions": [".js"],
   "maxErrors": 5,
 
-  "requireSpacesInFunctionExpression": {
+  "requireSpacesInAnonymousFunctionExpression": {
     "beforeOpeningCurlyBrace": true
   },
-  "disallowSpacesInFunctionExpression": {
+  "disallowSpacesInAnonymousFunctionExpression": {
+    "beforeOpeningRoundBrace": true
+  },
+  "requireSpacesInNamedFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowSpacesInNamedFunctionExpression": {
+    "beforeOpeningRoundBrace": true
+  },
+  "requireSpacesInFunction": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowSpacesInFunction": {
     "beforeOpeningRoundBrace": true
   }
 }
