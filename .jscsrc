@@ -21,5 +21,6 @@
   },
   "disallowSpacesInFunction": {
     "beforeOpeningRoundBrace": true
-  }
+  },
+  "validateLineBreaks": "CRLF"
 }
