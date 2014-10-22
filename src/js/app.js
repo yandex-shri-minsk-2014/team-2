@@ -1,24 +1,27 @@
-var socket    = io();
-var colors    = ['#E8716B','#47B39D','#FFAB89','#FDBF53','#70425E'];
+'use strict';
+var socket = io();
 var userList = $('.user-list');
-
-var users = [{name: 'Вася'}, {name: 'Петя'}];
 
 var usersUpdate = function(data) {
   userList.empty();
 
-  data.forEach(function(user, index) {
+  data.forEach(function(user) {
     userList.append(
       $('<li class="user">')
-        .text(user.name)
-        .css('backgroundColor', colors[index % colors.length])
+        .text(user.userName)
+        .css('backgroundColor', user.userColor)
     );
-  })
+  });
+};
+
+var changeRoom = function(data) {
+  window.history.pushState(1, document.title, data.roomId);
 };
 
 socket.on('usersUpdate', usersUpdate);
+socket.on('changeRoom', changeRoom);
 
-socket.on('connect', function(){
+socket.on('connect', function() {
   var roomId = window.location.pathname;
   socket.emit('userConnect', {
     roomId: roomId,
