@@ -30,7 +30,10 @@
     "watchify": "^2.0.0",
     "precommit-hook": "latest",
     "jquery": "~2.1.1",
-    "socket.io": "~1.1.0",
-    "socket.io-client": "~1.1.0"
+    "socket.io-client": "~1.1.0",
+    "Faker": "~0.7.2"
+  },
+  "settings": {
+    "debug": true
   }
 }

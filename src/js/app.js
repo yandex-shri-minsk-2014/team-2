@@ -1,18 +1,20 @@
 'use strict';
 
-var socket = require('./socket')();
+var connection = require('./socket')();
 var guard = require('./guard')();
 
-socket.init();
+connection.init();
 getUserName();
 
 function getUserName() {
-  var userName = guard.askTheName();
-  socket.verifyUserName(userName, function(ans) {
+  var userName = localStorage.getItem('app_userName') || guard.askTheName();
+  connection.verifyUserName(userName, function(ans) {
     if (!ans) {
+      localStorage.removeItem('app_userName');
       getUserName();
     } else {
-      socket.connect(userName);
+      localStorage.setItem('app_userName', userName);
+      connection.connect(userName);
     }
   });
 }

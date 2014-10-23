@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var settings = require('./../package.json').settings;
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -59,6 +60,11 @@ io.on('connection', function(socket) {
   });
 
   socket.on('verifyUserName', function(userName) {
+    if (settings.debug) {
+      socket.emit('verifyUserNameAnswer', true);
+      return;
+    }
+
     var roomId = socket.roomId;
     var room = rooms[roomId];
 
