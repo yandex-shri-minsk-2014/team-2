@@ -31,7 +31,9 @@
     "precommit-hook": "latest",
     "jquery": "~2.1.1",
     "socket.io-client": "~1.1.0",
-    "Faker": "~0.7.2"
+    "Faker": "~0.7.2",
+    "cjson": "~0.3.0",
+    "gulp-plato": "~1.0.1"
   },
   "settings": {
     "debug": true
