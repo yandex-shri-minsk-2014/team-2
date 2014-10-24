@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var settings = require('./../package.json').settings;
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -14,53 +15,76 @@ app.get('/:id', function(req, res) {
 var rooms = {};
 
 io.on('connection', function(socket) {
-  socket.on('userConnect', function(data) {
-    data.roomId = data.roomId.substr(1);
-    if (rooms[data.roomId] && data.roomId) {
-      socket.roomId = data.roomId;
 
-      rooms[data.roomId].colorHue = (rooms[data.roomId].colorHue >= 360) ?
-        rooms[data.roomId].colorHue - 350 : rooms[data.roomId].colorHue + 30;
+  socket.on('connectToRoom', function(roomId) {
+    if (!roomId) {
+      roomId = (Math.random() * 255).toString(32).replace('.', '');
+      socket.emit('changeRoom', {roomId: roomId});
+    }
 
-      rooms[data.roomId].users.push({
-        userId: socket.id,
-        userName: data.name,
-        userColor: 'hsl(' + rooms[data.roomId].colorHue + ', 60%, 40%)'
-      });
-
-      socket.join(data.roomId);
-      io.to(data.roomId).emit('usersUpdate', rooms[data.roomId].users);
-    } else {
-      var roomId = data.roomId || (Math.random() * 255).toString(32).replace('.', '');
-      socket.roomId = roomId;
-
+    socket.roomId = roomId;
+    if (!rooms[roomId]) {
       rooms[roomId] = {
-        users: [{
-          userId: socket.id,
-          userName: data.name,
-          userColor: 'hsl(' + 30 + ', 60%, 40%)'
-        }],
+        users: [],
         colorHue: 30
       };
-
-      socket.emit('changeRoom', {roomId: roomId});
-      socket.join(roomId);
-      io.to(roomId).emit('usersUpdate', rooms[roomId].users);
     }
+    socket.join(roomId);
+  });
+
+  socket.on('userConnect', function(userName) {
+    var roomId = socket.roomId;
+    var room = rooms[roomId];
+
+    room.colorHue = (room.colorHue >= 360) ?
+      room.colorHue - 350 :
+      room.colorHue + 30;
+    room.users.push({
+      userId: socket.id,
+      userName: userName,
+      userColor: 'hsl(' + room.colorHue + ', 60%, 40%)'
+    });
+
+    io.to(roomId).emit('usersUpdate', room.users);
   });
 
   socket.on('disconnect', function() {
+    var roomId = socket.roomId;
+    var room = rooms[roomId];
+
     socket.leave(socket.roomId);
-    rooms[socket.roomId].users = (rooms[socket.roomId].users || []).filter(function(value) {
+    room.users = (room.users || []).filter(function(value) {
       return value.userId !== socket.id;
     });
-    io.to(socket.roomId).emit('usersUpdate', rooms[socket.roomId].users);
+    io.to(roomId).emit('usersUpdate', room.users);
   });
+
+  socket.on('verifyUserName', function(userName) {
+    if (settings.debug) {
+      socket.emit('verifyUserNameAnswer', true);
+      return;
+    }
+
+    var roomId = socket.roomId;
+    var room = rooms[roomId];
+
+    if (!room) {
+      socket.emit('verifyUserNameAnswer', true);
+      return;
+    }
+
+    var founded = room.users.some(function(user) {
+      return user.userName === userName;
+    });
+
+    socket.emit('verifyUserNameAnswer', !founded);
+  });
+
 });
 
 var server = http.listen(3000, function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('App listening at http://%s:%s', host, port);
 });

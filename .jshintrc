@@ -85,6 +85,6 @@
 
   // Custom Globals
   "globals"       : {         // additional predefined global variables
-                      "io": true
+
                     }
 }
