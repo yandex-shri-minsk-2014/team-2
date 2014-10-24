@@ -4,21 +4,21 @@
 
     box-sizing: border-box;
     min-height: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .grid__cell
 {
     width: 100%;
 
-    background-color: #fff;
+    background-color: rgb(43, 48, 59);
 }
 
 .grid__cell_fixed_yes
 {
     width: 200px;
 
-    background-color: #5d5d5d;
+    background-color: rgb(35, 40, 48);
 }
 
 .grid__cell_shadowed_yes
