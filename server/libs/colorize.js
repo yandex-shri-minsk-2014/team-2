@@ -8,11 +8,11 @@ var colors = [
 ];
 
 module.exports = function() {
-  var roomColor = colors.slice(0);
+  var availableColors = colors.slice();
 
   var getColor = function() {
-    if (roomColor) {
-      return roomColor.pop();
+    if (availableColors.length) {
+      return availableColors.pop();
     } else {
       var randColor = colors[Math.round(Math.random() * 37)];
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(randColor);
@@ -23,12 +23,12 @@ module.exports = function() {
     }
   };
 
-  var setColor = function(color) {
-    roomColor.push(color);
+  var restoreColor = function(color) {
+    availableColors.push(color);
   };
 
   return {
     getColor: getColor,
-    setColor: setColor
+    restoreColor: restoreColor
   };
 };

@@ -7,6 +7,7 @@ var io = require('socket.io')(http);
 var path = require('path');
 var settings = require('./../package.json').settings;
 var colorize = require('./libs/colorize');
+var Room = require('./room.js');
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -26,10 +27,7 @@ io.on('connection', function(socket) {
 
     socket.roomId = roomId;
     if (!rooms[roomId]) {
-      rooms[roomId] = {
-        users: [],
-        colorize: colorize()
-      };
+      rooms[roomId] = new Room(colorize());
     }
 
     socket.join(roomId);
@@ -39,13 +37,12 @@ io.on('connection', function(socket) {
     var roomId = socket.roomId;
     var room = rooms[roomId];
 
-    room.users.push({
+    room.addUser({
       userId: socket.id,
-      userName: userName,
-      userColor: room.colorize.getColor()
+      userName: userName
     });
 
-    io.to(roomId).emit('usersUpdate', room.users);
+    io.to(roomId).emit('usersUpdate', room.getUsers());
   });
 
   socket.on('disconnect', function() {
@@ -53,15 +50,9 @@ io.on('connection', function(socket) {
     var room = rooms[roomId];
 
     socket.leave(socket.roomId);
-    room.users = (room.users || []).filter(function(value) {
-      if (value.userId === socket.id) {
-        room.colorize.setColor(value.userColor);
-        return false;
-      } else {
-        return true;
-      }
-    });
-    io.to(roomId).emit('usersUpdate', room.users);
+    room.removeUser(socket.id);
+
+    io.to(roomId).emit('usersUpdate', room.getUsers());
   });
 
   socket.on('verifyUserName', function(userName) {
@@ -78,7 +69,7 @@ io.on('connection', function(socket) {
       return;
     }
 
-    var founded = room.users.some(function(user) {
+    var founded = room.getUsers().some(function(user) {
       return user.userName === userName;
     });
 
