@@ -28,9 +28,10 @@ io.on('connection', function(socket) {
     if (!rooms[roomId]) {
       rooms[roomId] = {
         users: [],
-        colors: colorize.colors.slice(0)
+        colorize: colorize()
       };
     }
+
     socket.join(roomId);
   });
 
@@ -41,7 +42,7 @@ io.on('connection', function(socket) {
     room.users.push({
       userId: socket.id,
       userName: userName,
-      userColor: colorize.getColor(room)
+      userColor: room.colorize.getColor()
     });
 
     io.to(roomId).emit('usersUpdate', room.users);
@@ -54,7 +55,7 @@ io.on('connection', function(socket) {
     socket.leave(socket.roomId);
     room.users = (room.users || []).filter(function(value) {
       if (value.userId === socket.id) {
-        room.colors.push(value.userColor);
+        room.colorize.setColor(value.userColor);
         return false;
       } else {
         return true;

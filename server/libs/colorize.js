@@ -5,20 +5,30 @@ var colors = [
   '#e30909', '#8a7d4a', '#32ada5', '#0909e3', '#780533', '#f5a284', '#bfb308', '#033e42', '#0b0342', '#f50a48',
   '#421c03', '#395403', '#0ac6f5', '#420578', '#9c682d', '#8ed108', '#0776ad', '#ad42e3', '#f5c084', '#37bf5c',
   '#375066', '#42243c'
-]
+];
 
-var getColor = function(room) {
-  if (room.colors) {
-    return room.colors.pop();
-  } else {
-    var randColor = colors[Math.round(Math.random() * 37)];
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(randColor);
-    var r = Math.round((parseInt(result[1], 16) + Math.random() * 255) / 2);
-    var g = Math.round((parseInt(result[2], 16) + Math.random() * 255) / 2);
-    var b = Math.round((parseInt(result[3], 16) + Math.random() * 255) / 2);
-    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-  }
+module.exports = function() {
+  var roomColor = colors.slice(0);
+
+  var getColor = function() {
+    if (roomColor) {
+      return roomColor.pop();
+    } else {
+      var randColor = colors[Math.round(Math.random() * 37)];
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(randColor);
+      var r = Math.round((parseInt(result[1], 16) + Math.random() * 255) / 2);
+      var g = Math.round((parseInt(result[2], 16) + Math.random() * 255) / 2);
+      var b = Math.round((parseInt(result[3], 16) + Math.random() * 255) / 2);
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+  };
+
+  var setColor = function(color) {
+    roomColor.push(color);
+  };
+
+  return {
+    getColor: getColor,
+    setColor: setColor
+  };
 };
-
-module.exports.colors = colors;
-module.exports.getColor = getColor;
