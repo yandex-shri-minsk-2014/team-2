@@ -11,10 +11,10 @@ Room.prototype.addUser = function(user) {
 };
 
 Room.prototype.removeUser = function(userId) {
-  var self = this;
+  var _this = this;
   this._users = this._users.filter(function(user) {
     if (user.userId === userId) {
-      self._colorGenerator.restoreColor(user.userColor);
+      _this._colorGenerator.restoreColor(user.userColor);
       return false;
     } else {
       return true;
