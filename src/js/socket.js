@@ -28,8 +28,10 @@ module.exports = function() {
     data.forEach(function(user) {
       userList.append(
         $('<li class="user">')
-          .text(user.userName)
-          .css('backgroundColor', user.userColor)
+          .append(
+            $('<figure class="user__color">').css('backgroundColor', user.userColor)
+          )
+          .append(user.userName)
         );
       });
     }

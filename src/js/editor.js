@@ -2,22 +2,26 @@ module.exports = function() {
   'use strict';
 
   var editor = ace.edit('ace-editor');
-  var sbPosition = document.getElementById('statusbar__position');
+  var sbPosition = document.querySelector('#statusbar__position');
 
   function init() {
     editor.setTheme('ace/theme/solarized_dark');
 
     editor.getSession().setMode('ace/mode/javascript');
+
+    editor.getSession().setTabSize(2);
     editor.getSession().setUseSoftTabs(true);
-    editor.getSession().setUseWrapMode(true);
 
     editor.setShowPrintMargin(true);
     editor.setShowInvisibles(true);
+
+    editor.focus();
+    editor.gotoLine(1, 5);
   }
 
   editor.on('change', function(e) {  });
 
-  editor.getSession().selection.on('changeCursor', updateStatusBarPosition)
+  editor.getSession().selection.on('changeCursor', updateStatusBarPosition);
 
   function updateStatusBarPosition(data) {
     var cursorPosition = editor.getCursorPosition();
@@ -28,5 +32,5 @@ module.exports = function() {
 
   return {
     init: init
-  }
+  };
 };
