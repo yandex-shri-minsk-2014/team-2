@@ -2,6 +2,7 @@
 
 var connection = require('./socket')();
 var guard = require('./guard')();
+var editor = require('./editor')();
 
 connection.init();
 getUserName();
@@ -18,11 +19,3 @@ function getUserName() {
     }
   });
 }
-
-var editor = ace.edit('ace-editor');
-editor.setTheme('ace/theme/merbivore_soft');
-editor.getSession().setMode('ace/mode/javascript');
-editor.getSession().setUseSoftTabs(true);
-editor.getSession().setUseWrapMode(true);
-editor.setShowPrintMargin(true);
-editor.setShowInvisibles(true);

@@ -1,5 +1,5 @@
 .statusbar {
-  font-size: 75%;
+  font-size: .65em;
   line-height: 20px;
 
   position: relative;
@@ -7,8 +7,8 @@
   box-sizing: border-box;
   height: 20px;
   margin-top: -20px;
-  padding: 0 5px;
+  padding: 0 7px;
 
-  color: rgb(74,91,103);
-  background-color: rgb(28, 31,38);
+  color: #4c6a72;
+  background-color: #00222b;
 }

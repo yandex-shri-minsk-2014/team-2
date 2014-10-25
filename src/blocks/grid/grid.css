@@ -11,14 +11,14 @@
 {
     width: 100%;
 
-    background-color: rgb(43, 48, 59);
+    background-color: #002b36;
 }
 
 .grid__cell_fixed_yes
 {
     width: 200px;
 
-    background-color: rgb(35, 40, 48);
+    background-color: #002630;
 }
 
 .grid__cell_shadowed_yes
