@@ -4,6 +4,7 @@ var connection = require('./socket')();
 var guard = require('./guard')();
 var editor = require('./editor')();
 
+editor.init();
 connection.init();
 getUserName();
 
