@@ -9,5 +9,6 @@ gulp.task('jshint', function() {
     config.serverSrc
   ])
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
+    .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('fail'));
 });
