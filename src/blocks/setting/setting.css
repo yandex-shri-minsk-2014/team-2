@@ -1,0 +1,13 @@
+.setting__panel p {
+  padding: 9px 7px 3px 16px;
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 13px;
+}
+
+.setting__checkbox,
+.setting__select {
+  cursor: pointer;
+  float: right;
+}

@@ -1,8 +1,21 @@
 module.exports = function() {
   'use strict';
 
-  var editor = ace.edit('ace-editor');
-  var sbPosition = document.querySelector('#statusbar__position');
+  var $ = require('jquery');
+
+  var sbPosition = $('#statusbar__position');
+  var setting = {
+    editor: 'ace-editor',
+    useSoftTabs: '#useSoftTabs',
+    setShowGutter: '#setShowGutter',
+    setUseWrapMode: '#setUseWrapMode',
+    setShowPrintMargin: '#setShowPrintMargin',
+    setHighlightActiveLine: '#setHighlightActiveLine',
+    setShowInvisibles: '#setShowInvisibles',
+    setTabSize: '#setTabSize',
+    setFontSize: '#setFontSize'
+  };
+  var editor = ace.edit(setting.editor);
 
   function init() {
     editor.setTheme('ace/theme/solarized_dark');
@@ -26,9 +39,41 @@ module.exports = function() {
   function updateStatusBarPosition(data) {
     var cursorPosition = editor.getCursorPosition();
 
-    sbPosition.innerHTML = 'Line: ' + (cursorPosition.row + 1).toString() +
-     ', Column: ' + (cursorPosition.column + 1).toString();
+    sbPosition.text('Line: ' + (cursorPosition.row + 1).toString() +
+     ', Column: ' + (cursorPosition.column + 1).toString());
   }
+
+  $(setting.useSoftTabs).change(function() {
+    editor.getSession().setUseSoftTabs(this.checked);
+  });
+
+  $(setting.setShowGutter).change(function() {
+    editor.renderer.setShowGutter(this.checked);
+  });
+
+  $(setting.setUseWrapMode).change(function() {
+    editor.getSession().setUseWrapMode(this.checked);
+  });
+
+  $(setting.setShowPrintMargin).change(function() {
+    editor.setShowPrintMargin(this.checked);
+  });
+
+  $(setting.setHighlightActiveLine).change(function() {
+    editor.setHighlightActiveLine(this.checked);
+  });
+
+  $(setting.setShowInvisibles).change(function() {
+    editor.setShowInvisibles(this.checked);
+  });
+
+  $(setting.setTabSize).change(function() {
+    editor.getSession().setTabSize(this.value);
+  });
+
+  $(setting.setFontSize).change(function() {
+    $('#' + setting.editor).css('font-size', this.value);
+  });
 
   return {
     init: init
