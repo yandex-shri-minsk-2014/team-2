@@ -10,7 +10,7 @@ Room.prototype.addUser = function(user) {
     return u.userId === user.userId;
   });
   if (founded) {
-    throw 'Пользователь с таким id уже есть в комнате!';
+    throw new Error('Пользователь с таким id уже есть в комнате!');
   }
 
   user.userColor = this._colorGenerator.getColor();

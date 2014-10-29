@@ -1,4 +1,4 @@
-# %name% 
+# %name%
 
 [![Dependencies](https://david-dm.org/yandex-shri-minsk-2014/team-2.png)](https://david-dm.org/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/pr)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
@@ -18,6 +18,7 @@ App development depends on npm, the Node package manager, which is distributed w
    cd team-2
    npm update
    ```
+
 3. Install [gulp](http://gulpjs.com/) globally:
 
    ```
@@ -27,10 +28,18 @@ App development depends on npm, the Node package manager, which is distributed w
 4. Run default gulp task:
 
    ```
-gulp
+   gulp
    ```
 
 The app should start on [http://localhost:3000/](http://localhost:3000/)
+
+
+## Testing
+
+Just run in console:
+   ```
+   npm test
+   ```
 
 
 ## Command
