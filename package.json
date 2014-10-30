@@ -42,7 +42,8 @@
     "socket.io-client": "~1.1.0",
     "Faker": "~0.7.2",
     "cjson": "~0.3.0",
-    "gulp-plato": "~1.0.1"
+    "gulp-plato": "~1.0.1",
+    "es6-promise": "~2.0.0"
   },
   "devDependencies": {
     "chai": "~1.9.2",
