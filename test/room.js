@@ -1,7 +1,7 @@
 'use strict';
 
-var should = require('chai').expect,
-    Room = require('../server/room.js');
+var should = require('chai').expect;
+var Room = require('../server/room.js');
 
 describe('Room', function() {
   var fakeColorGenerator,
@@ -20,7 +20,7 @@ describe('Room', function() {
 
     it('should add the user', function() {
       room.addUser({ userId: 0 });
-      should(room.getUsers().length).to.eq(1);
+      should(room.getUsers()).have.length(1);
     });
 
     it('should throw an exception if trying to add the user who is already in the room', function() {
@@ -64,7 +64,7 @@ describe('Room', function() {
     it('change the returned array should not affect the users in the room', function() {
       room.addUser({ userId: 0 });
       room.getUsers().push(42);
-      should(room.getUsers().length).to.eq(1);
+      should(room.getUsers()).have.length(1);
     });
 
   });
