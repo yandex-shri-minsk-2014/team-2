@@ -133,6 +133,10 @@ describe('db', function() {
         });
       });
 
+      it('should be rejected if room doesnt exist', function() {
+        return should(db.room.getUsers(2)).to.be.rejected;
+      });
+
     });
 
 
