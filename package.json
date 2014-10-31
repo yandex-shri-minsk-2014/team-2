@@ -5,8 +5,11 @@
   "main": "server/index.js",
   "scripts": {
     "lint": "gulp lint",
-    "test": "mocha",
-    "start": "gulp"
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "start": "gulp",
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000",
+    "analysis": "gulp plato",
+    "report": "npm run analysis | npm run coverage"
   },
   "repository": {
     "type": "git",
@@ -48,6 +51,7 @@
   },
   "devDependencies": {
     "chai": "~1.9.2",
+    "istanbul": "~0.3.2",
     "mocha": "~2.0.1"
   },
   "settings": {
