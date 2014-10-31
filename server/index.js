@@ -28,8 +28,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('userConnect', function(userName) {
-    var roomId = socket.roomId,
-        userId = socket.id;
+    var roomId = socket.roomId;
+    var userId = socket.id;
 
     db.room.update.addUser(roomId, {
       userId: userId,
@@ -42,8 +42,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnect', function() {
-    var roomId = socket.roomId,
-        userId = socket.id;
+    var roomId = socket.roomId;
+    var userId = socket.id;
 
     socket.leave(roomId);
     db.room.update.removeUser(roomId, userId).then(function() {

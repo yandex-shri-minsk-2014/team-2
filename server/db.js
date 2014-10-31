@@ -5,10 +5,20 @@ var Room = require('./room.js');
 var colorize = require('./libs/colorize');
 var Promise = require('es6-promise').Promise;
 
-var rooms = { };
+var rooms = {};
+
+function clearRooms() {
+  return new Promise(function(resolve) {
+    rooms = {};
+    resolve();
+  });
+}
 
 function createRoom(roomId) {
-  rooms[roomId] || (rooms[roomId] = new Room(colorize()));
+  return new Promise(function(resolve) {
+    var room = rooms[roomId] || (rooms[roomId] = new Room(colorize()));
+    resolve(room);
+  });
 }
 
 function getRoom(roomId) {
@@ -54,6 +64,7 @@ function removeUserFromRoom(roomId, userId) {
 }
 
 module.exports = {
+  __clearRooms: clearRooms,
   room: {
     create: createRoom,
     get: getRoom,
