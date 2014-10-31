@@ -12,6 +12,10 @@ module.exports = {
     cascade: false,
     dest: dest + '/css'
   },
+  js: {
+    clientSrc: 'src/js/**/*.js',
+    serverSrc: 'server/**/*.js'
+  },
   browserify: {
     debug: true,
     extensions: ['.js'],
@@ -27,4 +31,4 @@ module.exports = {
       watch: ['server']
     }
   }
-}
+};

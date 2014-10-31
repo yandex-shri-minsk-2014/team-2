@@ -1,28 +1,20 @@
-var socket    = io();
-var colors    = ['#E8716B','#47B39D','#FFAB89','#FDBF53','#70425E'];
-var userList = $('.user-list');
+'use strict';
 
-var users = [{name: 'Вася'}, {name: 'Петя'}];
+var connection = require('./socket')();
+var guard = require('./guard')();
 
-var usersUpdate = function(data) {
-  userList.empty();
+connection.init();
+getUserName();
 
-  data.forEach(function(user, index) {
-    userList.append(
-      $('<li class="user">')
-        .text(user.name)
-        .css('backgroundColor', colors[index % colors.length])
-    );
-  })
-};
-
-socket.on('usersUpdate', usersUpdate);
-
-socket.on('connect', function(){
-  var roomId = window.location.pathname;
-  socket.emit('userConnect', {
-    roomId: roomId,
-    name: 'Вася'
+function getUserName() {
+  var userName = localStorage.getItem('app_userName') || guard.askTheName();
+  connection.verifyUserName(userName, function(ans) {
+    if (!ans) {
+      localStorage.removeItem('app_userName');
+      getUserName();
+    } else {
+      localStorage.setItem('app_userName', userName);
+      connection.connect(userName);
+    }
   });
-  window.socket = socket;
-});
+}

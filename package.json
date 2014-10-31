@@ -2,12 +2,22 @@
   "name": "yandex-shri-minsk",
   "version": "0.0.0",
   "description": "Yandex Shri Minsk",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "gulp lint",
+    "test": "mocha",
+    "start": "gulp"
   },
-  "author": "Anikeychik Dmitry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yandex-shri-minsk-2014/team-2.git"
+  },
+  "author": "Yandex SHRI Team 2",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yandex-shri-minsk-2014/team-2/issues"
+  },
+  "homepage": "https://github.com/yandex-shri-minsk-2014/team-2",
   "dependencies": {
     "browserify": "^6.1.0",
     "express": "^4.9.8",
@@ -19,10 +29,28 @@
     "gulp-notify": "^2.0.0",
     "gulp-supervisor": "^0.1.2",
     "gulp-util": "^3.0.1",
+    "gulp-jshint": "^1.6.3",
+    "jshint-stylish": "^1.0.0",
+    "gulp-jscs": "^1.2.0",
     "pretty-hrtime": "^0.2.2",
     "require-dir": "^0.1.0",
     "socket.io": "~1.1.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "precommit-hook": "latest",
+    "jquery": "~2.1.1",
+    "socket.io-client": "~1.1.0",
+    "Faker": "~0.7.2",
+    "cjson": "~0.3.0",
+    "gulp-plato": "~1.0.1",
+    "es6-promise": "~2.0.0",
+    "chai-as-promised": "~4.1.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.2",
+    "mocha": "~2.0.1"
+  },
+  "settings": {
+    "debug": true
   }
 }
