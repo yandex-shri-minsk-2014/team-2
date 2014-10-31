@@ -9,7 +9,7 @@ gulp.task('plato', function () {
     config.clientSrc,
     config.serverSrc
   ])
-  .pipe(plato('report', {
+  .pipe(plato('report/analysis', {
     jshint: {
       options: jshintOptions
     }
