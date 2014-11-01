@@ -2,7 +2,11 @@ module.exports = function() {
   'use strict';
 
   var $ = require('jquery');
-  //var sharejs = require('./share');
+  var ace = require('brace');
+  require('brace/mode/javascript');
+  require('brace/theme/solarized_dark');
+  require('./share/share');
+  require('./share/ace');
 
   var sbPosition = $('#statusbar__position');
   var setting = {
@@ -16,7 +20,7 @@ module.exports = function() {
     setTabSize: '#setTabSize',
     setFontSize: '#setFontSize'
   };
-  var editor = window.ace.edit(setting.editor);
+  var editor = ace.edit(setting.editor);
 
   function init() {
     editor.setTheme('ace/theme/solarized_dark');
@@ -42,7 +46,7 @@ module.exports = function() {
       }
 
       if (doc.created) {
-        doc.insert(0, "# Coffeescript editor!\n\nexports.foo = ->\n  console.log 'hi!'");
+        doc.insert(0, '(function() {\n  console.log(\'Hello, wolrd!\');\n})();\n');
       }
 
       doc.attach_ace(editor);

@@ -6,6 +6,6 @@ gulp.task('jscs', function () {
   return gulp.src([
     config.clientSrc,
     config.serverSrc
-  ])
+  ].join(config.ignoreSrc))
     .pipe(jscs());
 });
