@@ -2,7 +2,9 @@ module.exports = function() {
   'use strict';
 
   var $ = require('jquery');
-  var ace = require('ace');
+  var ace = require('brace');
+  require('brace/mode/javascript');
+  require('brace/theme/solarized_dark');
 
   var sbPosition = $('#statusbar__position');
   var setting = {
