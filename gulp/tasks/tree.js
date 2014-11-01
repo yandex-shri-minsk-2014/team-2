@@ -3,10 +3,10 @@ var bem = require('gulp-bem');
 var config = require('../config').tree;
 
 var levels = [
-  config.blocks_path,
-  config.pages_path
+  config.blocksPath,
+  config.pagesPath
 ];
 
 gulp.task('tree', function () {
-  global.tree = bem.objects(levels).pipe(bem.deps()).pipe(bem.tree());
+  return global.tree = bem.objects(levels).pipe(bem.deps()).pipe(bem.tree());
 });

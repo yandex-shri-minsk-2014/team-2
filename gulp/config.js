@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   tree: {
-    blocks_path: 'src/blocks',
-    pages_path: 'src/pages'
+    blocksPath: 'src/blocks',
+    pagesPath: 'src/pages'
   }
 };
