@@ -32,7 +32,9 @@ module.exports = function() {
     editor.gotoLine(1, 5);
   }
 
-  editor.on('change', function(e) {  });
+  editor.on('change', function(e) {
+    console.log(e);
+  });
 
   editor.getSession().selection.on('changeCursor', updateStatusBarPosition);
 
