@@ -15,7 +15,7 @@ module.exports = function() {
     setTabSize: '#setTabSize',
     setFontSize: '#setFontSize'
   };
-  var editor = ace.edit(setting.editor);
+  var editor = window.ace.edit(setting.editor);
 
   function init() {
     editor.setTheme('ace/theme/solarized_dark');
@@ -38,7 +38,7 @@ module.exports = function() {
 
   editor.getSession().selection.on('changeCursor', updateStatusBarPosition);
 
-  function updateStatusBarPosition(data) {
+  function updateStatusBarPosition() {
     var cursorPosition = editor.getCursorPosition();
 
     sbPosition.text('Line: ' + (cursorPosition.row + 1).toString() +
