@@ -2,6 +2,7 @@ module.exports = function() {
   'use strict';
 
   var $ = require('jquery');
+  var ace = require('ace');
 
   var sbPosition = $('#statusbar__position');
   var setting = {
@@ -15,7 +16,7 @@ module.exports = function() {
     setTabSize: '#setTabSize',
     setFontSize: '#setFontSize'
   };
-  var editor = window.ace.edit(setting.editor);
+  var editor = ace.edit(setting.editor);
 
   function init() {
     editor.setTheme('ace/theme/solarized_dark');
