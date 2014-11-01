@@ -1,8 +1,32 @@
-.user
-{
-    font-size: 16px;
+.user {
+  position: relative;
 
-    padding: 16px;
+  font-size: 13px;
+  line-height: 13px;
 
-    color: #fff;
+  padding: 18px 5px 10px 36px;
+
+  color: #fff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user__color {
+  display: block;
+
+  width: 16px;
+  height: 16px;
+
+  margin: 0;
+
+  top: 17px;
+  left: 10px;
+
+  position: absolute;
+
+  border-radius: 4px;
+
+  box-sizing: border-box;
 }
