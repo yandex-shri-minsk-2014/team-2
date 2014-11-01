@@ -8,15 +8,10 @@ head
     .grid
       .grid__cell.grid__cell_shadowed_yes Hola gondola
       .grid__cell.grid__cell_fixed_yes
-        ul.user-list
-          li.user(style='background-color: #E8716B;') Motilda
-          li.user(style='background-color: #47B39D;') Rosenbaum
-          li.user(style='background-color: #FFAB89;') Gimley
-          li.user(style='background-color: #FDBF53;') Mohentoken
-          li.user(style='background-color: #70425E;') Kabombaleya
-    .statusbar
-      div(style='float: right;') Spaces: 2, HTML
-      | Line 21, Column 41
+        +user-list
+    +statusbarz
+      
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     script(src='https://cdn.socket.io/socket.io-1.1.0.js')
     script(src='js/index.js')
+    

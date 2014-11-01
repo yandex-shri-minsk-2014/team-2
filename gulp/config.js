@@ -8,7 +8,7 @@ module.exports = {
   },
   js: {
     clientSrc: 'src/js/**/*.js',
-    serverSrc: 'server/**/*.js'
+    serverSrc: 'server/**/*.js',
     dest: dest + '/js'
   },
   html: {
