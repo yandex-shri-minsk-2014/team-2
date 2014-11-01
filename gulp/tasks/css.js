@@ -7,7 +7,7 @@ var config = require('../config');
 
 gulp.task('css', ['tree'], function () {
   function buildCss(page) {
-    return global.tree.deps(config.tree.pages_path + '/' + page.id)
+    return global.tree.deps(config.tree.pagesPath + '/' + page.id)
       .pipe(bem.src('{bem}.{css,styl}'))
       .pipe(concat(page.id + '.css'))
       .pipe(stylus())
@@ -18,5 +18,5 @@ gulp.task('css', ['tree'], function () {
       .pipe(gulp.dest(config.css.dest));
   }
 
-  return bem.objects(config.tree.pages_path).map(buildCss);
+  return bem.objects(config.tree.pagesPath).map(buildCss);
 });
