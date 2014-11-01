@@ -2,6 +2,7 @@ module.exports = function() {
   'use strict';
 
   var $ = require('jquery');
+  //var sharejs = require('./share');
 
   var sbPosition = $('#statusbar__position');
   var setting = {
@@ -30,6 +31,24 @@ module.exports = function() {
 
     editor.focus();
     editor.gotoLine(1, 5);
+
+    editor.setReadOnly(true);
+    var docName = document.location.hash.slice(1);
+
+    sharejs.open(docName, 'text', function(error, doc) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      if (doc.created) {
+        doc.insert(0, "# Coffeescript editor!\n\nexports.foo = ->\n  console.log 'hi!'");
+      }
+
+      doc.attach_ace(editor);
+      editor.setReadOnly(false);
+    });
+
   }
 
   editor.on('change', function(e) {

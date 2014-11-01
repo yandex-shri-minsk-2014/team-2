@@ -7,6 +7,7 @@ var io = require('socket.io')(http);
 var path = require('path');
 var settings = require('./../package.json').settings;
 var db = require('./db.js');
+var sharejs = require('share');
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -79,3 +80,19 @@ var server = http.listen(3000, function() {
 
   console.log('App listening at http://%s:%s', host, port);
 });
+
+var options = {
+  db: {type: 'none'},
+  browserChannel: {cors: '*'},
+  auth: function(client, action) {
+    // This auth handler rejects any ops bound for docs starting with 'readonly'.
+    if (action.name === 'submit op' && action.docName.match(/^readonly/)) {
+      action.reject();
+    } else {
+      action.accept();
+    }
+  }
+};
+
+sharejs.server.attach(app, options);
+
