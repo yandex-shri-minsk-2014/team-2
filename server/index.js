@@ -6,16 +6,13 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var settings = require('./../package.json').settings;
-var colorize = require('./libs/colorize');
-var Room = require('./room.js');
+var db = require('./db.js');
 
 app.use(express.static(__dirname + '/../build'));
 
 app.get('/:id', function(req, res) {
   res.sendFile(path.resolve('build/index.html'));
 });
-
-var rooms = {};
 
 io.on('connection', function(socket) {
 
@@ -26,33 +23,34 @@ io.on('connection', function(socket) {
     }
 
     socket.roomId = roomId;
-    if (!rooms[roomId]) {
-      rooms[roomId] = new Room(colorize());
-    }
-
+    db.room.create(roomId);
     socket.join(roomId);
   });
 
   socket.on('userConnect', function(userName) {
     var roomId = socket.roomId;
-    var room = rooms[roomId];
+    var userId = socket.id;
 
-    room.addUser({
-      userId: socket.id,
+    db.room.update.addUser(roomId, {
+      userId: userId,
       userName: userName
+    }).then(function() {
+      return db.room.getUsers(roomId);
+    }).then(function(users) {
+      io.to(roomId).emit('usersUpdate', users);
     });
-
-    io.to(roomId).emit('usersUpdate', room.getUsers());
   });
 
   socket.on('disconnect', function() {
     var roomId = socket.roomId;
-    var room = rooms[roomId];
+    var userId = socket.id;
 
-    socket.leave(socket.roomId);
-    room.removeUser(socket.id);
-
-    io.to(roomId).emit('usersUpdate', room.getUsers());
+    socket.leave(roomId);
+    db.room.update.removeUser(roomId, userId).then(function() {
+      return db.room.getUsers(roomId);
+    }).then(function(users) {
+      io.to(roomId).emit('usersUpdate', users);
+    });
   });
 
   socket.on('verifyUserName', function(userName) {
@@ -62,18 +60,15 @@ io.on('connection', function(socket) {
     }
 
     var roomId = socket.roomId;
-    var room = rooms[roomId];
 
-    if (!room) {
+    db.room.getUsers(roomId).then(function(users) {
+      var founded = users.some(function(user) {
+        return user.userName === userName;
+      });
+      socket.emit('verifyUserNameAnswer', !founded);
+    }).catch(function() {
       socket.emit('verifyUserNameAnswer', true);
-      return;
-    }
-
-    var founded = room.getUsers().some(function(user) {
-      return user.userName === userName;
     });
-
-    socket.emit('verifyUserNameAnswer', !founded);
   });
 
 });

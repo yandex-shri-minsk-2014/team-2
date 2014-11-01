@@ -2,13 +2,25 @@
   "name": "yandex-shri-minsk",
   "version": "0.0.0",
   "description": "Yandex Shri Minsk",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "lint": "gulp lint",
-    "test": "echo \"Error: no test specified\" "
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "start": "gulp",
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000",
+    "analysis": "gulp plato",
+    "report": "npm run analysis | npm run coverage"
   },
-  "author": "Anikeychik Dmitry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yandex-shri-minsk-2014/team-2.git"
+  },
+  "author": "Yandex SHRI Team 2",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yandex-shri-minsk-2014/team-2/issues"
+  },
+  "homepage": "https://github.com/yandex-shri-minsk-2014/team-2",
   "dependencies": {
     "browserify": "^6.1.0",
     "express": "^4.9.8",
@@ -33,7 +45,14 @@
     "socket.io-client": "~1.1.0",
     "Faker": "~0.7.2",
     "cjson": "~0.3.0",
-    "gulp-plato": "~1.0.1"
+    "gulp-plato": "~1.0.1",
+    "es6-promise": "~2.0.0",
+    "chai-as-promised": "~4.1.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.2",
+    "istanbul": "~0.3.2",
+    "mocha": "~2.0.1"
   },
   "settings": {
     "debug": true

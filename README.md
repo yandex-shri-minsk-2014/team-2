@@ -1,4 +1,4 @@
-# %name% 
+# %name%
 
 [![Dependencies](https://david-dm.org/yandex-shri-minsk-2014/team-2.png)](https://david-dm.org/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/pr)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
@@ -18,6 +18,7 @@ App development depends on npm, the Node package manager, which is distributed w
    cd team-2
    npm update
    ```
+
 3. Install [gulp](http://gulpjs.com/) globally:
 
    ```
@@ -27,14 +28,33 @@ App development depends on npm, the Node package manager, which is distributed w
 4. Run default gulp task:
 
    ```
-gulp
+   gulp
    ```
 
 The app should start on [http://localhost:3000/](http://localhost:3000/)
 
 
+## Testing
+
+Just run in console:
+   ```
+   npm test
+   ```
+
+
+## Reports
+
+Now we have code analysis and test coverage reports.
+
+Just run in console:
+   ```
+   npm run report
+   ```
+ See `report` folder.
+
+
 ## Command
 
-| <img alt="dima716" src="https://avatars2.githubusercontent.com/u/8137279" width="70"> |![Egor Lipskiy](https://avatars1.githubusercontent.com/u/2931416?s=70) |<img alt="Alexander Sologub" src="https://avatars0.githubusercontent.com/u/902788" width="70"> | ![Dmitry](https://avatars1.githubusercontent.com/u/1198848?s=70) | <img alt="zheksoon" src="https://avatars0.githubusercontent.com/u/8950238" width="70"> |
+| <img alt="dima716" src="https://avatars2.githubusercontent.com/u/8137279" width="70"> | <img alt="Egor Lipskiy" src="https://avatars1.githubusercontent.com/u/2931416?s=70" width="70"> | <img alt="Alexander Sologub" src="https://avatars0.githubusercontent.com/u/902788" width="70"> | <img alt="Dmitry" src="https://avatars1.githubusercontent.com/u/1198848?s=70" width="70"> | <img alt="zheksoon" src="https://avatars0.githubusercontent.com/u/8950238" width="70"> |
 |---|---|---|---|---|
 | [dima716](https://github.com/dima716) | [elipskiy](https://github.com/elipskiy) | [marvelousNinja](https://github.com/marvelousNinja) | [Semigradsky](https://github.com/Semigradsky) | [zheksoon](https://github.com/zheksoon) |
