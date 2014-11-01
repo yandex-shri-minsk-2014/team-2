@@ -2,9 +2,9 @@
 (function() {
   var Range, applyToShareJS, requireImpl;
 
-  requireImpl = ace.require != null ? ace.require : require;
+  requireImpl = ace.acequire != null ? ace.acequire : require;
 
-  Range = require("range").Range;
+  Range = requireImpl("ace/range").Range;
 
   applyToShareJS = function(editorDoc, delta, doc) {
     var getStartOffsetPosition, pos, text;
