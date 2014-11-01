@@ -1,22 +1,52 @@
-'use strict';
+module.exports = function() {
+  'use strict';
 
-var connection = require('./socket')();
-var guard = require('./guard')();
-var editor = require('./editor')();
+  var $ = require('jquery');
+  var io = require('socket.io-client');
+  var socket = io();
+  var userList;
 
-editor.init();
-connection.init();
-getUserName();
+  function init() {
+    userList = $('.user-list');
 
-function getUserName() {
-  var userName = localStorage.getItem('app_userName') || guard.askTheName();
-  connection.verifyUserName(userName, function(ans) {
-    if (!ans) {
-      localStorage.removeItem('app_userName');
-      getUserName();
-    } else {
-      localStorage.setItem('app_userName', userName);
-      connection.connect(userName);
+    socket.on('usersUpdate', onUsersUpdate);
+    socket.on('changeRoom', onChangeRoom);
+    socket.on('connect', function() {
+      socket.emit('connectToRoom', window.location.pathname.slice(1));
+    });
+  }
+
+  function verifyUserName(userName, verifyCallback) {
+    socket.emit('verifyUserName', userName);
+    socket.off('verifyUserNameAnswer');
+    socket.on('verifyUserNameAnswer', verifyCallback);
+  }
+
+  function onUsersUpdate(data) {
+    userList.empty();
+
+    data.forEach(function(user) {
+      userList.append(
+        $('<li class="user">')
+          .append(
+            $('<figure class="user__color">').css('backgroundColor', user.userColor)
+          )
+          .append(user.userName)
+        );
+      });
     }
-  });
-}
+
+  function onChangeRoom(data) {
+    window.history.pushState(1, document.title, data.roomId);
+  }
+
+  function connect(userName) {
+    socket.emit('userConnect', userName);
+  }
+
+  return {
+    init: init,
+    connect: connect,
+    verifyUserName: verifyUserName
+  };
+};

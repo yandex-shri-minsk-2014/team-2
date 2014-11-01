@@ -1,17 +1,19 @@
 doctype html
 html(lang='en')
 head
-    meta(charset='UTF-8')
-    title Meepo
-    link(rel='stylesheet', href='css/index.css')
-  body
-    .grid
-      .grid__cell.grid__cell_shadowed_yes Hola gondola
-      .grid__cell.grid__cell_fixed_yes
-        +user-list
-    +statusbarz
-      
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
-    script(src='https://cdn.socket.io/socket.io-1.1.0.js')
-    script(src='js/index.js')
-    
+  meta(charset='UTF-8')
+  title Meepo
+  link(rel='stylesheet', href='css/index.css')
+body
+  .grid
+    .grid__cell.grid__cell_shadowed_yes
+      +editor
+    .grid__cell.grid__cell_fixed_yes
+      .tabs
+        +tab('Online:', true)
+          +user-list
+        +tab('Settings:', false)
+          +setting
+  +statusbar
+
+  script(src='js/index.js')
