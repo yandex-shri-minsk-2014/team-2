@@ -5,7 +5,8 @@ module.exports = function() {
   var ace = require('brace');
   require('brace/mode/javascript');
   require('brace/theme/solarized_dark');
-
+  require('../../js/share/share');
+  require('../../js/share/ace');
   var sbPosition = $('#statusbar__position');
   var setting = {
     editor: 'ace-editor',
@@ -33,11 +34,25 @@ module.exports = function() {
 
     editor.focus();
     editor.gotoLine(1, 5);
-  }
 
-  editor.on('change', function(e) {
-    console.log(e);
-  });
+    editor.setReadOnly(true);
+    var docName = document.location.hash.slice(1);
+
+    sharejs.open(docName, 'text', function(error, doc) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      if (doc.created) {
+        doc.insert(0, '(function() {\n  console.log(\'Hello, wolrd!\');\n})();\n');
+      }
+
+      doc.attach_ace(editor);
+      editor.setReadOnly(false);
+    });
+
+  }
 
   editor.getSession().selection.on('changeCursor', updateStatusBarPosition);
 
