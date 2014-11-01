@@ -23,7 +23,6 @@
   "homepage": "https://github.com/yandex-shri-minsk-2014/team-2",
   "dependencies": {
     "Faker": "~0.7.2",
-    "ace": "0.0.2",
     "browserify": "^6.1.0",
     "chai-as-promised": "~4.1.1",
     "cjson": "~0.3.0",
@@ -48,7 +47,8 @@
     "socket.io": "~1.1.0",
     "socket.io-client": "~1.1.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "brace": "^0.4.0"
   },
   "devDependencies": {
     "chai": "~1.9.2",

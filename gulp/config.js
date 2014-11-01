@@ -14,6 +14,7 @@ module.exports = {
   },
   js: {
     clientSrc: 'src/js/**/*.js',
+    ignoreSrc: ['!src/js/share/**/*.js'],
     serverSrc: 'server/**/*.js'
   },
   browserify: {

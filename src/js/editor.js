@@ -2,7 +2,12 @@ module.exports = function() {
   'use strict';
 
   var $ = require('jquery');
-  var ace = require('ace');
+  var ace = require('brace');
+  require('brace/mode/javascript');
+  require('brace/theme/solarized_dark');
+  require('./share/share');
+  require('./share/ace');
+
   var sbPosition = $('#statusbar__position');
   var setting = {
     editor: 'ace-editor',
@@ -41,7 +46,7 @@ module.exports = function() {
       }
 
       if (doc.created) {
-        doc.insert(0, "# Coffeescript editor!\n\nexports.foo = ->\n  console.log 'hi!'");
+        doc.insert(0, '(function() {\n  console.log(\'Hello, wolrd!\');\n})();\n');
       }
 
       doc.attach_ace(editor);
