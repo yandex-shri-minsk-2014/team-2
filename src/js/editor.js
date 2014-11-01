@@ -7,7 +7,6 @@ module.exports = function() {
   require('brace/theme/solarized_dark');
   require('./share/share');
   require('./share/ace');
-
   var sbPosition = $('#statusbar__position');
   var setting = {
     editor: 'ace-editor',
