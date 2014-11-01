@@ -16,15 +16,6 @@
   letter-spacing: .7px;
 }
 
-
-
-
-
-
-
-
-
-
-.tab__display-hidden {
+.tab__display_hidden {
   display: none;
 }

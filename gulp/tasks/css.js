@@ -1,16 +1,22 @@
 var gulp = require('gulp');
-var concatCss = require('gulp-concat-css');
+var bem = require('gulp-bem');
+var concat = require('gulp-concat');
+var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
-var csscomb = require('gulp-csscomb');
-var config=require('../config').css;
+var config = require('../config');
 
-gulp.task('css', function() {
-  return gulp.src(config.src)
-    .pipe(concatCss(config.concatSrc))
-    .pipe(autoprefixer({
-      browsers: config.browsers,
-      cascade: config.cascade
-    }))
-    .pipe(csscomb())
-    .pipe(gulp.dest(config.dest));
+gulp.task('css', ['tree'], function () {
+  function buildCss(page) {
+    return global.tree.deps(config.tree.pages_path + '/' + page.id)
+      .pipe(bem.src('{bem}.{css,styl}'))
+      .pipe(concat(page.id + '.css'))
+      .pipe(stylus())
+      .pipe(autoprefixer({
+          browsers: config.css.browsers,
+          cascade: config.css.cascade
+      }))
+      .pipe(gulp.dest(config.css.dest));
+  }
+
+  return bem.objects(config.tree.pages_path).map(buildCss);
 });

@@ -1,0 +1,20 @@
+doctype html
+html(lang='en')
+head
+  meta(charset='UTF-8')
+  title Meepo
+  link(rel='stylesheet', href='css/index.css')
+body
+  .grid
+    .grid__cell.grid__cell_shadowed_yes
+      +editor
+    .grid__cell.grid__cell_fixed_yes
+      .tabs
+        +tab('Online:', true)
+          +user-list
+        +tab('Settings:', false)
+          +setting
+  +statusbar
+
+  script(src='/channel/bcsocket.js')
+  script(src='js/index.js')
