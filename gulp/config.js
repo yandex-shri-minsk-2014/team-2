@@ -1,34 +1,28 @@
 var dest = 'build';
 
 module.exports = {
-  copyStatic: {
-    src: 'src/index.html',
-    dst: dest
-  },
   css: {
-    src: 'src/blocks/**/*.css',
-    concatSrc: 'index.css',
     browsers: ['last 2 versions'],
     cascade: false,
     dest: dest + '/css'
   },
   js: {
     clientSrc: 'src/js/**/*.js',
-    serverSrc: 'server/**/*.js'
+    ignoreSrc: ['!src/js/share/**/*.js'],
+    serverSrc: 'server/**/*.js',
+    dest: dest + '/js'
   },
-  browserify: {
-    debug: true,
-    extensions: ['.js'],
-    bundleConfigs: [{
-      entries: __dirname + '/../src/js/app.js',
-      dest: dest,
-      outputName: 'js/app.min.js'
-    }]
+  html: {
+    dest: dest
   },
   supervisor: {
     path: 'server/index.js',
     opts: {
       watch: ['server']
     }
+  },
+  tree: {
+    blocksPath: 'src/blocks',
+    pagesPath: 'src/pages'
   }
 };

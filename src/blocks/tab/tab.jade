@@ -1,0 +1,4 @@
+mixin tab(title, visibility)
+  .tab(class=visibility ? '' : 'tab__display_hidden')
+    .tab__handle= title
+    block

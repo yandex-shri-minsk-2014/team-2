@@ -1,8 +1,10 @@
 'use strict';
 
-var connection = require('./socket')();
+var connection = require('../user-list/user-list')();
 var guard = require('./guard')();
+var editor = require('../editor/editor')();
 
+editor.init();
 connection.init();
 getUserName();
 
