@@ -53,6 +53,7 @@ module.exports = function() {
     init: init,
     connect: connect,
     verifyUserName: verifyUserName,
-    sendMarker: sendMarker
+    sendMarker: sendMarker,
+    socket: socket.io.engine
   };
 };

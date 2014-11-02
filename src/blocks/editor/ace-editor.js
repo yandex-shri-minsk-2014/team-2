@@ -37,6 +37,10 @@ module.exports = function(connection) {
   }
 
   function updateCursorMarker(data) {
+    if (connection.socket.id === data.userId) {
+      return true;
+    }
+
     removeMarker(data);
 
     Range = ace.acequire('ace/range').Range;
