@@ -6,11 +6,12 @@ module.exports = function() {
   var socket = io();
   var userList;
 
-  function init() {
+  function init(editor) {
     userList = $('.user-list');
 
     socket.on('usersUpdate', onUsersUpdate);
     socket.on('changeRoom', onChangeRoom);
+    socket.on('markerUpdate', editor.updateCursorMarker);
     socket.on('connect', function() {
       socket.emit('connectToRoom', window.location.pathname.slice(1));
     });
@@ -44,9 +45,14 @@ module.exports = function() {
     socket.emit('userConnect', userName);
   }
 
+  function sendMarker(data) {
+    socket.emit('userCursorPosition', data);
+  }
+
   return {
     init: init,
     connect: connect,
-    verifyUserName: verifyUserName
+    verifyUserName: verifyUserName,
+    sendMarker: sendMarker
   };
 };

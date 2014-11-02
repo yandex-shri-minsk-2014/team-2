@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(connection) {
   'use strict';
 
   var $ = require('jquery');
@@ -29,23 +29,11 @@ module.exports = function() {
       if (doc.created) {
         doc.insert(0, '(function() {\n  console.log(\'Hello, wolrd!\');\n})();\n');
       }
-
       doc.attach_ace(editor);
       editor.setReadOnly(false);
-
     });
 
     editor.getSession().selection.on('changeCursor', updateCursorPosition);
-
-    var msg = {
-      userId: 1,
-      cursor: {
-        row: 1,
-        column: 5
-      },
-      color: 'blue'
-    };
-    updateCursorMarker(msg);
   }
 
   function updateCursorMarker(data) {
@@ -61,8 +49,10 @@ module.exports = function() {
     }
 
     function drawMarker(stringBuilder, range, left, top, config) {
-      var color = 'background-color: ' + data.color;
-      stringBuilder.push('<div class='ace_selection' style='', 'left:', left, 'px;', 'top:', top + 2, 'px;', 'height: 15px;', 'width:', 2, 'px;', color || '', ''></div>', '<div class='ace_selection' style='', 'left:', left - 2, 'px;', 'top:', top, 'px;', 'height:', 5, 'px;', 'width:', 6, 'px;', color || '', ''></div>');
+      var color = 'background-color: ' + data.userColor;
+      stringBuilder.push('<div class="ace_selection" style="', 'left:', left, 'px;', 'top:', top + 2, 'px;',
+       'height: 15px;', 'width:', 2, 'px;', color || '', '""></div>', '<div class="ace_selection" style="',
+       'left:', left - 2, 'px;', 'top:', top, 'px;', 'height:', 5, 'px;', 'width:', 6, 'px;', color || '', '""></div>');
     }
   }
 
@@ -78,7 +68,7 @@ module.exports = function() {
     sbPosition.text('Line: ' + (cursorPosition.row + 1).toString() +
      ', Column: ' + (cursorPosition.column + 1).toString());
 
-    //send to server
+    connection.sendMarker(cursorPosition);
   }
 
   return {
