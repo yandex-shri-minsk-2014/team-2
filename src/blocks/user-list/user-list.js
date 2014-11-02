@@ -12,6 +12,7 @@ module.exports = function() {
     socket.on('usersUpdate', onUsersUpdate);
     socket.on('changeRoom', onChangeRoom);
     socket.on('markerUpdate', editor.updateCursorMarker);
+    socket.on('markerRemove', editor.removeMarker);
     socket.on('connect', function() {
       socket.emit('connectToRoom', window.location.pathname.slice(1));
     });
