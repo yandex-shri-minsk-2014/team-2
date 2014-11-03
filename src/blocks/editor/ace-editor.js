@@ -54,9 +54,11 @@ module.exports = function(connection) {
 
     function drawMarker(stringBuilder, range, left, top, config) {
       var color = 'background-color: ' + data.userColor;
-      stringBuilder.push('<div class="ace_selection" style="', 'left:', left, 'px;', 'top:', top + 2, 'px;',
-       'height: 15px;', 'width:', 2, 'px;', color || '', '""></div>', '<div class="ace_selection" style="',
-       'left:', left - 2, 'px;', 'top:', top, 'px;', 'height:', 5, 'px;', 'width:', 6, 'px;', color || '', '""></div>');
+
+      stringBuilder.push('<div class="ace_selection" style="', 'left:', left, 'px;', 'top:', top, 'px;',
+       'height:', config.lineHeight - 2, 'px;', 'width:', 2, 'px;', color || '', '""></div>');
+      stringBuilder.push('<div class="ace_selection" style="', 'left:', left - 2, 'px;', 'top:', top - 2, 'px;',
+        'height:', 5, 'px;', 'width:', 6, 'px;', color || '', '""></div>');
     }
   }
 
