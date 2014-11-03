@@ -13,6 +13,7 @@ Room.prototype.addUser = function(user) {
     throw new Error('Пользователь с таким id уже есть в комнате!');
   }
 
+  user.cursor = {row: 0, collumn: 0};
   user.userColor = this._colorGenerator.getColor();
   this._users.push(user);
 };
@@ -27,6 +28,25 @@ Room.prototype.removeUser = function(userId) {
       return true;
     }
   });
+};
+
+Room.prototype.userSetCursor = function(userId, position) {
+  this._users.some(function(user, pos) {
+    if (user.userId === userId) {
+      user.cursor = position;
+      return true;
+    }
+  });
+};
+
+Room.prototype.getUser = function(userId) {
+  var founded;
+  this._users.forEach(function(u) {
+    if (u.userId === userId) {
+      founded = u;
+    }
+  });
+  return founded;
 };
 
 Room.prototype.getUsers = function() {

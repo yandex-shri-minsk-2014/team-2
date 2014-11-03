@@ -47,6 +47,8 @@ io.on('connection', function(socket) {
     var userId = socket.id;
 
     socket.leave(roomId);
+
+    io.to(roomId).emit('markerRemove', {userId: userId});
     db.room.update.removeUser(roomId, userId).then(function() {
       return db.room.getUsers(roomId);
     }).then(function(users) {
@@ -72,6 +74,16 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('userCursorPosition', function(position) {
+    var roomId = socket.roomId;
+    var userId = socket.id;
+
+    db.room.user.setCursor(roomId, userId, position).then(function() {
+      return db.room.user.get(roomId, userId);
+    }).then(function(user) {
+      io.to(roomId).emit('markerUpdate', user);
+    });
+  });
 });
 
 var server = http.listen(3000, function() {
