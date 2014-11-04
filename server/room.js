@@ -31,7 +31,8 @@ Room.prototype.removeUser = function(userId) {
 };
 
 Room.prototype.userSetCursor = function(userId, position) {
-  return this._users.some(function(user, pos) {    if (user.userId === userId) {
+  return this._users.some(function(user) {
+    if (user.userId === userId) {
       user.cursor = position;
       return true;
     }
