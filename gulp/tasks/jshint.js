@@ -7,7 +7,7 @@ gulp.task('jshint', function() {
   return gulp.src([
     config.clientSrc,
     config.serverSrc
-  ].join(config.ignoreSrc))
+  ].concat(config.ignoreSrc))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'));

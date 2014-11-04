@@ -8,7 +8,7 @@ gulp.task('plato', function () {
   return gulp.src([
     config.clientSrc,
     config.serverSrc
-  ])
+  ].concat(config.ignoreSrc))
   .pipe(plato('report/analysis', {
     jshint: {
       options: jshintOptions

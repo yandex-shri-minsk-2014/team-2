@@ -7,6 +7,7 @@ module.exports = function(connection) {
   require('brace/theme/solarized_dark');
   require('../../js/share/share');
   require('../../js/share/ace');
+  var Range = ace.acequire('ace/range').Range;
   var editor;
   var cursorMarkers = {};
   var sbPosition = $('#statusbar__position');
@@ -43,14 +44,13 @@ module.exports = function(connection) {
 
     removeMarker(data);
 
-    Range = ace.acequire('ace/range').Range;
     var range = new Range(data.cursor.row, data.cursor.column, data.cursor.row, data.cursor.column + 1);
 
     var markerId = editor.session.addMarker(range, 'ace_selection', drawMarker, false);
     cursorMarkers[data.userId] = {
       markerId: markerId,
       cursor: data.cursor
-    }
+    };
 
     function drawMarker(stringBuilder, range, left, top, config) {
       var color = 'background-color: ' + data.userColor + ';';
@@ -78,7 +78,7 @@ module.exports = function(connection) {
       stringBuilder.push('<div class="ace_selection ace_marker_name" style="',
         'left:', left - 2, 'px;', 'top:', namePosTop, 'px;',
         color,
-      '">', data.userName ,'</div>');
+      '">', data.userName, '</div>');
     }
   }
 
@@ -101,5 +101,5 @@ module.exports = function(connection) {
     init: init,
     updateCursorMarker: updateCursorMarker,
     removeMarker: removeMarker
-  }
-}
+  };
+};
