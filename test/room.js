@@ -69,4 +69,31 @@ describe('Room', function() {
 
   });
 
+  describe('userSetCursor(userId, position)', function() {
+    var position = {row: 2, collumn: 2};
+
+    beforeEach(function() {
+      room.addUser({userId: 0});
+    });
+
+    it('should return true if change position of cursor', function() {
+      should(room.userSetCursor(0, position)).to.be.true;
+      should(room.userSetCursor(1, position)).to.be.false;
+    })
+
+  });
+
+  describe('getUser(userId)', function() {
+
+    beforeEach(function() {
+      room.addUser({userId: 0});
+    });
+
+    it('should return the user or false if the user not found', function() {
+      should(room.getUser(0)).to.be.notempty;
+      should(room.getUser(1)).to.be.false;
+    });
+
+  });
+
 });
