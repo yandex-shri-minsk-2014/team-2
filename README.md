@@ -3,6 +3,7 @@
 [![Dependencies](https://david-dm.org/yandex-shri-minsk-2014/team-2.png)](https://david-dm.org/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/pr)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/issue)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
+[![](https://reposs.herokuapp.com/?path=yandex-shri-minsk-2014/team-2)](https://github.com/ruddfawcett/reposs)
 
 
 Awesome online code editor that lets people collaborate in real-time.
