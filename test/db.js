@@ -139,6 +139,54 @@ describe('db', function() {
 
     });
 
+    describe('user.setCursor()', function() {
+      var roomId = 1;
+      var userId = 1;
+      var cursor = {row: 1, collumn: 1};
+
+      beforeEach(function(done){
+        db.__clearRooms().then(function() {
+          return db.room.create(roomId);
+        }).then(function() {
+          return db.room.update.addUser(roomId, {userId: userId});
+        }).then(function() {
+          done();
+        });
+      });
+
+      it('should set cursor user', function() {
+        return db.room.user.setCursor(roomId, userId, cursor).then(function() {
+          return should(db.room.user.get(roomId, userId)).to.eventually.deep.property('cursor', cursor);
+        });
+      });
+
+      it('should be rejected if room doesnt exist', function() {
+        return should(db.room.user.setCursor(2, userId, cursor)).to.be.rejected;
+      });
+
+    });
+
+    describe('user.get()', function() {
+      var user = { userId: 1 };
+
+      beforeEach(function(done){
+        db.__clearRooms().then(function() {
+          return db.room.create(1);
+        }).then(function() {
+          return db.room.update.addUser(1, user);
+        }).then(function() {
+          done();
+        });
+      });
+
+      it('should return user from room', function() {
+        return should(db.room.user.get(1, 1)).to.eventually.deep.equal(user);
+      });
+
+      it('should be rejected if room doesnt exist', function() {
+        return should(db.room.user.get(2)).to.be.rejected;
+      });
+    });
 
   });
 

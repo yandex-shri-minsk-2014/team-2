@@ -31,7 +31,7 @@ Room.prototype.removeUser = function(userId) {
 };
 
 Room.prototype.userSetCursor = function(userId, position) {
-  this._users.some(function(user, pos) {
+  return this._users.some(function(user, pos) {
     if (user.userId === userId) {
       user.cursor = position;
       return true;
@@ -40,8 +40,8 @@ Room.prototype.userSetCursor = function(userId, position) {
 };
 
 Room.prototype.getUser = function(userId) {
-  var founded;
-  this._users.forEach(function(u) {
+  var founded = false;
+  this._users.some(function(u) {
     if (u.userId === userId) {
       founded = u;
     }
