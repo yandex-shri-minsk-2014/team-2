@@ -63,6 +63,27 @@ function removeUserFromRoom(roomId, userId) {
   });
 }
 
+function userUpdateCursorPosition(roomId, userId, cursorPosition) {
+  return new Promise(function(resolve, reject) {
+    getRoom(roomId).then(function(room) {
+      room.userSetCursor(userId, cursorPosition)
+      resolve();
+    }).catch(function() {
+      reject();
+    });
+  });
+}
+
+function getUser(roomId, userId) {
+  return new Promise(function(resolve, reject) {
+    getRoom(roomId).then(function(room) {
+      resolve(room.getUser(userId));
+    }).catch(function() {
+      reject();
+    });
+  });
+}
+
 module.exports = {
   __clearRooms: clearRooms,
   room: {
@@ -71,7 +92,11 @@ module.exports = {
     getUsers: getUsersFromRoom,
     update: {
       addUser: addUserToRoom,
-      removeUser: removeUserFromRoom
+      removeUser: removeUserFromRoom,
+    },
+    user: {
+      setCursor: userUpdateCursorPosition,
+      get: getUser
     }
   }
 };

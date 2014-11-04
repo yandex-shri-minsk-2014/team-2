@@ -2,10 +2,10 @@
 
 var connection = require('../user-list/user-list')();
 var guard = require('./guard')();
-var editor = require('../editor/editor')();
+var editor = require('../editor/ace-editor')(connection);
 
+connection.init(editor);
 editor.init();
-connection.init();
 getUserName();
 
 function getUserName() {
