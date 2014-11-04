@@ -166,6 +166,28 @@ describe('db', function() {
 
     });
 
+    describe('user.get()', function() {
+      var user = { userId: 1 };
+
+      beforeEach(function(done){
+        db.__clearRooms().then(function() {
+          return db.room.create(1);
+        }).then(function() {
+          return db.room.update.addUser(1, user);
+        }).then(function() {
+          done();
+        });
+      });
+
+      it('should return user from room', function() {
+        return should(db.room.user.get(1, 1)).to.eventually.deep.equal(user);
+      });
+
+      it('should be rejected if room doesnt exist', function() {
+        return should(db.room.user.get(2)).to.be.rejected;
+      });
+    });
+
   });
 
 });
