@@ -1,3 +1,5 @@
 module.exports.require = [
-  { block: 'user' }
+  {
+    block: 'user'
+  }
 ];

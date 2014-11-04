@@ -51,24 +51,6 @@ module.exports = function() {
       doc.attach_ace(editor);
       editor.setReadOnly(false);
     });
-
-    Range = ace.acequire('ace/range').Range;
-    console.log(Range);
-    console.log(new Range(1, 2, 3, 4));
-    var msg = {
-      cursor: {
-        row: 1,
-        column: 5
-      }
-    };
-    var range = new Range(msg.cursor.row, msg.cursor.column, msg.cursor.row, msg.cursor.column + 1);
-    var markerId = editor.session.addMarker(range, "ace_selection", drawMarker, false);
-    function drawMarker(stringBuilder, range, left, top, config) {
-        console.log(stringBuilder, range, left, top, config);
-        var color = "background-color: blue";
-        stringBuilder.push("<div class='ace_selection' style='", "left:", left, "px;", "top:", top + 2, "px;", "height: 15px;", "width:", 2, "px;", color || "", "'></div>", "<div class='ace_selection' style='", "left:", left - 2, "px;", "top:", top, "px;", "height:", 5, "px;", "width:", 6, "px;", color || "", "'></div>");
-      }
-
   }
 
   editor.getSession().selection.on('changeCursor', updateStatusBarPosition);
@@ -111,7 +93,6 @@ module.exports = function() {
   $(setting.setFontSize).change(function() {
     $('#' + setting.editor).css('font-size', this.value);
   });
-
 
   return {
     init: init

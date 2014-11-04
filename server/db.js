@@ -66,7 +66,7 @@ function removeUserFromRoom(roomId, userId) {
 function userUpdateCursorPosition(roomId, userId, cursorPosition) {
   return new Promise(function(resolve, reject) {
     getRoom(roomId).then(function(room) {
-      room.userSetCursor(userId, cursorPosition)
+      room.userSetCursor(userId, cursorPosition);
       resolve();
     }).catch(function() {
       reject();

@@ -7,7 +7,7 @@ module.exports = {
     dest: dest + '/css'
   },
   js: {
-    clientSrc: 'src/js/**/*.js',
+    clientSrc: 'src/**/*.js',
     ignoreSrc: ['!src/js/share/**/*.js'],
     serverSrc: 'server/**/*.js',
     dest: dest + '/js'
