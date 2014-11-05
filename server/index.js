@@ -8,6 +8,9 @@ var path = require('path');
 var settings = require('./../package.json').settings;
 var db = require('./db.js');
 var sharejs = require('share');
+var id = require('./libs/idGenerator');
+
+var SERVER_PORT = 3000;
 
 app.use(express.static(__dirname + '/../build'));
 
@@ -19,7 +22,7 @@ io.on('connection', function(socket) {
 
   socket.on('connectToRoom', function(roomId) {
     if (!roomId) {
-      roomId = (Math.random() * 255).toString(32).replace('.', '');
+      roomId = id();
       socket.emit('changeRoom', {roomId: roomId});
     }
 
@@ -86,7 +89,7 @@ io.on('connection', function(socket) {
   });
 });
 
-var server = http.listen(3000, function() {
+var server = http.listen(SERVER_PORT, function() {
   var host = server.address().address;
   var port = server.address().port;
 

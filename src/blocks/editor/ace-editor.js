@@ -59,24 +59,22 @@ module.exports = function(connection) {
 
       stringBuilder.push('<div class="ace_selection ace_marker_caret" style="',
         'left:', left, 'px;', 'top:', top, 'px;',
-        'height:', config.lineHeight, 'px;', 'width:', 2, 'px;',
+        'height:', config.lineHeight, 'px;',
         color,
       '"></div>');
 
       stringBuilder.push('<div class="ace_selection ace_marker_top" style="',
-        'left:', left - 2, 'px;', 'top:', top - 2, 'px;',
-        'height:', 5, 'px;', 'width:', 6, 'px;',
+        'left:', left, 'px;', 'top:', top, 'px;',
         color,
       '"></div>');
 
       stringBuilder.push('<div class="ace_selection ace_marker_showname" style="',
-        'left:', left - 16, 'px;', 'top:', top - 11, 'px;',
-        'height:', 35, 'px;', 'width:', 35, 'px;',
+        'left:', left, 'px;', 'top:', top, 'px;',
         color,
       '"></div>');
 
       stringBuilder.push('<div class="ace_selection ace_marker_name" style="',
-        'left:', left - 2, 'px;', 'top:', namePosTop, 'px;',
+        'left:', left, 'px;', 'top:', namePosTop, 'px;',
         color,
       '">', data.userName, '</div>');
     }
