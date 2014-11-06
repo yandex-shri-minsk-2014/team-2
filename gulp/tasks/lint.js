@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('lint', ['jshint', 'jscs']);
+gulp.task('lint', ['jshint', 'jscs', 'buddy']);
