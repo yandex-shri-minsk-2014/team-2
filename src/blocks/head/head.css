@@ -1,0 +1,55 @@
+.head {
+  font-size: .8em;
+  line-height: 40px;
+
+  position: relative;
+
+  height: 40px;
+  margin-bottom: -40px;
+
+  text-align: right;
+
+  color: #4c6a72;
+  background-color: #fdf6e3;
+  box-shadow: 0 -1px 0 0 #e5e5e5 inset;
+}
+
+.head__left {
+  /*float: left;*/
+  position: absolute;
+  left: 0;
+
+  display: inline-block;
+}
+
+.head__title {
+  font-size: 16px;
+
+  display: inline-block;
+
+  margin: 0 15px;
+}
+
+.head__menu {
+  display: inline-block;
+}
+
+.head__menu a {
+  padding: 0 5px;
+
+  color: #4c6a72;
+}
+
+.head__user {
+  display: inline-block;
+}
+
+.user {
+  display: inline;
+
+  margin: 0 15px;
+}
+
+.user__logout {
+  color: #4c6a72;
+}

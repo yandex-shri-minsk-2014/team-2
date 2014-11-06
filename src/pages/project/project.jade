@@ -3,8 +3,16 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title Meepo
-    link(rel='stylesheet', href='css/index.css')
+    link(rel='stylesheet', href='css/project.css')
   body
+    +head
+    .splitview
+      .splitview__panel.splitview__panel_editor
+      .splitview__panel.splitview__panel_right
+    +statusbar
+    //- +button('Позже', false)
+  //- +button('etet')
+  //- +button('Привязать vk.com', true)
     .grid
       .grid__cell.grid__cell_shadowed_yes
         +editor
@@ -14,7 +22,3 @@ html(lang='en')
             +user-list
           +tab('Settings:', false)
             +setting
-    +statusbar
-
-    script(src='/channel/bcsocket.js')
-    script(src='js/index.js')

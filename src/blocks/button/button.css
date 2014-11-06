@@ -1,0 +1,26 @@
+.button {
+  background-color: transparent;
+
+  height: 30px;
+  font-size: 15px;
+  line-height: 15px;
+
+  border-radius: 3px;
+  border: 1px solid #eee8d5;
+
+  cursor: pointer;
+  transition: border-color .3s ease;
+}
+.button:hover {
+  border-color: #839496;
+}
+
+.button__lable {
+  padding: 0 15px;
+
+  color: #586e75;
+}
+
+.button_width_long {
+  min-width: 180px;
+}

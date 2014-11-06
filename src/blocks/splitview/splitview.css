@@ -1,0 +1,15 @@
+.splitview {
+  display: flex;
+
+  box-sizing: border-box;
+  height: 100%;
+  padding-bottom: 20px;
+  padding-top: 40px;
+}
+
+.splitview__panel {
+  width: 100%;
+
+  background-color: #002b36;
+}
+
