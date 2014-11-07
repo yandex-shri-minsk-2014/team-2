@@ -5,6 +5,7 @@ module.exports = function(connection) {
   var ace = require('brace');
   require('brace/mode/javascript');
   require('brace/theme/solarized_dark');
+  require('brace/theme/solarized_light');
   require('../../js/share/share');
   require('../../js/share/ace');
   var Range = ace.acequire('ace/range').Range;
@@ -15,7 +16,7 @@ module.exports = function(connection) {
   function init() {
     editor = ace.edit('ace-editor');
 
-    editor.setTheme('ace/theme/solarized_dark');
+    editor.setTheme('ace/theme/solarized_light');
     editor.getSession().setMode('ace/mode/javascript');
 
     editor.setReadOnly(true);
@@ -46,7 +47,7 @@ module.exports = function(connection) {
 
     var range = new Range(data.cursor.row, data.cursor.column, data.cursor.row, data.cursor.column + 1);
 
-    var markerId = editor.session.addMarker(range, 'ace_selection', drawMarker, false);
+    var markerId = editor.session.addMarker(range, 'ace_selection', drawMarker, true);
     cursorMarkers[data.userId] = {
       markerId: markerId,
       cursor: data.cursor

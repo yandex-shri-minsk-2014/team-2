@@ -12,10 +12,14 @@
 
   padding: 0 15px;
 
-  background-color: #001e25;
+  background-color: #fae7b3;
 
   font-weight: 600;
   letter-spacing: .7px;
+}
+
+.theme_dark .tab__handle {
+  background-color: #001e25;
 }
 
 .tab__display_hidden {
