@@ -1,10 +1,10 @@
 'use strict';
 
-var connection = require('../user-list/user-list')();
-var guard = require('./guard')();
-var editor = require('../editor/ace-editor')(connection);
+var connection = require('../../js/connection');
+var guard = require('./guard');
 
-connection.init(editor);
+var editor = require('../editor/editor')('ace');
+
 editor.init();
 getUserName();
 
