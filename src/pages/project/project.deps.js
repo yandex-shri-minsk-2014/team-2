@@ -13,5 +13,8 @@ module.exports.require = [
   },
   {
     block: 'splitview'
+  },
+  {
+    block: 'editor'
   }
 ];

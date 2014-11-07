@@ -13,3 +13,13 @@
   background-color: #002b36;
 }
 
+.splitview__panel_editor {
+  position: relative;
+
+  /*box-shadow: 0 0 10px 0 rgba(0,0,0,.3);*/
+}
+.splitview__panel_right {
+  width: 200px;
+
+  background-color: #002630;
+}
