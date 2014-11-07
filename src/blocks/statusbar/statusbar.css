@@ -10,5 +10,9 @@
   padding: 0 7px;
 
   color: #4c6a72;
+  background-color: #fbeecb;
+}
+
+.theme_dark .statusbar {
   background-color: #00222b;
 }

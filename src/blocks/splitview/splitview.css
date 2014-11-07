@@ -21,5 +21,9 @@
 .splitview__panel_right {
   width: 200px;
 
+  background-color: #fbf1d3;
+}
+
+.theme_dark .splitview__panel_right {
   background-color: #002630;
 }
