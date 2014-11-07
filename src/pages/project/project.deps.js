@@ -16,5 +16,11 @@ module.exports.require = [
   },
   {
     block: 'editor'
+  },
+  {
+    block: 'tab'
+  },
+  {
+    block: 'user-list'
   }
 ];

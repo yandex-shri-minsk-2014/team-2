@@ -13,6 +13,7 @@
   background-color: #fbeecb;
   box-shadow: 0 -1px 0 0 #657b83 inset;
 }
+
 .theme_dark .head {
   color: #4c6a72;
   background-color: #00222b;
@@ -41,11 +42,11 @@
   padding: 0 5px;
 }
 
-.head__user {
+.head__right {
   display: inline-block;
 }
 
-.user {
+.head__user {
   display: inline;
 
   margin: 0 15px;

@@ -20,6 +20,7 @@
 }
 .splitview__panel_right {
   width: 200px;
+  height: 100%;
 
   background-color: #fbf1d3;
 }
