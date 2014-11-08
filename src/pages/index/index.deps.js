@@ -19,5 +19,14 @@ module.exports.require = [
   },
   {
     block: 'setting'
+  },
+  {
+    block: 'head'
+  },
+  {
+    block: 'splitview'
+  },
+  {
+    block: 'editor'
   }
 ];

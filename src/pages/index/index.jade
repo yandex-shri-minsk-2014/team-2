@@ -4,11 +4,12 @@ html(lang='en')
     meta(charset='UTF-8')
     title Meepo
     link(rel='stylesheet', href='css/index.css')
-  body
-    .grid
-      .grid__cell.grid__cell_shadowed_yes
+  body.theme_dark
+    +head
+    .splitview
+      .splitview__panel.splitview__panel_editor
         +editor
-      .grid__cell.grid__cell_fixed_yes
+      .splitview__panel.splitview__panel_right
         .tabs
           +tab('Online:', true)
             +user-list
