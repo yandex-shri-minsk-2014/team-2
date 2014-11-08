@@ -1,5 +1,6 @@
 # Meepo
 
+[![Build Status](https://travis-ci.org/yandex-shri-minsk-2014/team-2.svg)](https://travis-ci.org/yandex-shri-minsk-2014/team-2)
 [![Dependencies](https://david-dm.org/yandex-shri-minsk-2014/team-2.png)](https://david-dm.org/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/pr)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
 [![Issue Stats](http://issuestats.com/github/yandex-shri-minsk-2014/team-2/badge/issue)](http://issuestats.com/github/yandex-shri-minsk-2014/team-2)
