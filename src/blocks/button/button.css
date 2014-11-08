@@ -6,13 +6,13 @@
   line-height: 15px;
 
   border-radius: 3px;
-  border: 1px solid #eee8d5;
+  border: 1px solid #839496;
 
   cursor: pointer;
   transition: border-color .3s ease;
 }
 .button:hover {
-  border-color: #839496;
+  border-color: #657b83;
 }
 
 .button__lable {

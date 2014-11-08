@@ -2,9 +2,9 @@
   display: flex;
 
   box-sizing: border-box;
-  height: 100%;
-  padding-bottom: 20px;
-  padding-top: 40px;
+  height: calc(100% - 60px);
+  /*padding-bottom: 20px;*/
+  /*padding-top: 40px;*/
 }
 
 .splitview__panel {
