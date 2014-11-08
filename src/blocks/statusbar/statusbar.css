@@ -2,13 +2,17 @@
   font-size: .7em;
   line-height: 20px;
 
-  position: relative;
-
   box-sizing: border-box;
   height: 20px;
-  margin-top: -20px;
+  /*margin-top: -20px;*/
   padding: 0 7px;
 
   color: #4c6a72;
+  background-color: #fbeecb;
+
+  flex-shrink: 0;
+}
+
+.theme_dark .statusbar {
   background-color: #00222b;
 }
