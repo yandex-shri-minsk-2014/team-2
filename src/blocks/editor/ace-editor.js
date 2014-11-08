@@ -1,45 +1,35 @@
-module.exports = function(connection) {
-  'use strict';
+'use strict';
 
-  var $ = require('jquery');
+var me = require('../../js/me');
+
+module.exports = function(a) {
   var ace = require('brace');
+  var Range = ace.acequire('ace/range').Range;
   require('brace/mode/javascript');
   require('brace/theme/solarized_dark');
   require('brace/theme/solarized_light');
   require('../../js/share/share');
   require('../../js/share/ace');
-  var Range = ace.acequire('ace/range').Range;
-  var editor;
   var cursorMarkers = {};
-  var sbPosition = $('#statusbar__position');
 
-  function init() {
-    editor = ace.edit('ace-editor');
+  var editor = ace.edit('editor');
 
-    editor.setTheme('ace/theme/solarized_light');
-    editor.getSession().setMode('ace/mode/javascript');
+  editor.setTheme('ace/theme/solarized_dark');
+  editor.getSession().setMode('ace/mode/javascript');
+  editor.setReadOnly(true);
 
-    editor.setReadOnly(true);
-    var docName = document.location.hash.slice(1);
+  editor.getSession().selection.on('changeCursor', function() {
+    var cursorPosition = editor.getCursorPosition();
+    a.updateCursorPosition(cursorPosition);
+  });
 
-    sharejs.open(docName, 'text', function(error, doc) {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      if (doc.created) {
-        doc.insert(0, '(function() {\n  console.log(\'Hello, wolrd!\');\n})();\n');
-      }
-      doc.attach_ace(editor);
-      editor.setReadOnly(false);
-    });
-
-    editor.getSession().selection.on('changeCursor', updateCursorPosition);
+  function attachToDocument(doc) {
+    doc.attach_ace(editor);
+    editor.setReadOnly(false);
   }
 
   function updateCursorMarker(data) {
-    if (connection.socket.id === data.userId) {
+    if (me.id() === data.userId) {
       return true;
     }
 
@@ -48,6 +38,7 @@ module.exports = function(connection) {
     var range = new Range(data.cursor.row, data.cursor.column, data.cursor.row, data.cursor.column + 1);
 
     var markerId = editor.session.addMarker(range, 'ace_selection', drawMarker, true);
+
     cursorMarkers[data.userId] = {
       markerId: markerId,
       cursor: data.cursor
@@ -87,17 +78,8 @@ module.exports = function(connection) {
     }
   }
 
-  function updateCursorPosition() {
-    var cursorPosition = editor.getCursorPosition();
-
-    sbPosition.text('Line: ' + (cursorPosition.row + 1).toString() +
-     ', Column: ' + (cursorPosition.column + 1).toString());
-
-    connection.sendMarker(cursorPosition);
-  }
-
   return {
-    init: init,
+    attachToDocument: attachToDocument,
     updateCursorMarker: updateCursorMarker,
     removeMarker: removeMarker
   };
