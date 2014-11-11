@@ -4,6 +4,10 @@
 var Room = require('./room.js');
 var colorize = require('./libs/colorize');
 var Promise = require('es6-promise').Promise;
+var mongoose = require('./libs/mongoose').mongoose;
+var RoomModel = require('./libs/mongoose').RoomModel;
+var UserModel = require('./libs/mongoose').UserModel;
+var faker = require('Faker');
 
 var rooms = {};
 
@@ -14,41 +18,81 @@ function clearRooms() {
   });
 }
 
-function createRoom(roomId) {
-  return new Promise(function(resolve) {
-    var room = rooms[roomId] || (rooms[roomId] = new Room(colorize()));
-    resolve(room);
+function createRoom(roomId, userId) {
+  return new Promise(function(resolve, reject) {
+    RoomModel.findOne({roomId: roomId}, function(err, room) {
+      if (err) {
+        reject(err);
+      } else if (room) {
+        resolve(room);
+      } else {
+        var room = new RoomModel({roomId: roomId});
+        room.save(function(err, room) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(room);
+          }
+        });
+      }
+    });
   });
 }
 
 function getRoom(roomId) {
   return new Promise(function(resolve, reject) {
-    var room = rooms[roomId];
-    if (room) {
-      resolve(room);
-    } else {
-      reject();
-    }
+    RoomModel.findOne({roomId: roomId}, function(err, room) {
+      if (err) {
+        reject(err);
+      } else if (room) {
+        resolve(room)
+      } else {
+        reject();
+      }
+    });
   });
 }
 
 function getUsersFromRoom(roomId) {
   return new Promise(function(resolve, reject) {
-    getRoom(roomId).then(function(room) {
-      resolve(room.getUsers());
-    }).catch(function() {
-      reject();
-    });
+    RoomModel.findOne({roomId: roomId})
+      .populate(users)
+      .exec(function(err, users) {
+        console.log(err);
+        console.log(users);
+      })
   });
 }
 
 function addUserToRoom(roomId, user) {
   return new Promise(function(resolve, reject) {
-    getRoom(roomId).then(function(room) {
-      room.addUser(user);
-      resolve();
-    }).catch(function() {
-      reject();
+    // пока нет регистрации
+    UserModel.findOne({_id: user.userId}, function(err, foundUser) {
+      if (err) {
+        reject(err);
+      } else if (foundUser) {
+
+      } else {
+        var person = new UserModel({ userName: user.userName, userId: user.userId, password: faker.Lorem.words(1)[0], _id: user.userId});
+        person.save(function(err, foundUser) {
+          if (err) {
+            reject(err);
+          }
+        });
+      }
+    });
+
+    RoomModel.findOne({roomId: roomId}, function(err, room) {
+      if (err) {
+        reject(err);
+      } else if (room) {
+        room.addUser(user.userId, function(err, data) {
+          console.log(err);
+          console.log(data);
+        });
+      } else {
+        reject();
+      }
     });
   });
 }
