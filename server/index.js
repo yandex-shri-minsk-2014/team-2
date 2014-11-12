@@ -97,7 +97,10 @@ var server = http.listen(SERVER_PORT, function() {
 });
 
 var options = {
-  db: {type: 'none'},
+  db: {
+    type: 'mongo',
+    opsCollectionPerDoc: false
+  },
   browserChannel: {cors: '*'},
   auth: function(client, action) {
     // This auth handler rejects any ops bound for docs starting with 'readonly'.

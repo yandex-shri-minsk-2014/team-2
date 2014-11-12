@@ -26,7 +26,7 @@ var RoomSchema = new Schema({
     },
     userColor: {
       type: String,
-      default: '#42243c'
+      default: 'rgb(55, 191, 92);'
     }
   }],
   createdAt: {

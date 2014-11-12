@@ -56,7 +56,8 @@
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.0.0",
     "mongoose": "^3.8.19",
-    "crypto": "0.0.3"
+    "crypto": "0.0.3",
+    "mongodb": "^1.4.19"
   },
   "devDependencies": {
     "chai": "~1.9.2",
