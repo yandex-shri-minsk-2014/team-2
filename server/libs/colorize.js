@@ -28,6 +28,7 @@ module.exports = function() {
   };
 
   return {
+    availableColors: availableColors,
     getColor: getColor,
     restoreColor: restoreColor
   };

@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var colorize = require('../libs/colorize')();
 
 var Schema = mongoose.Schema;
 
@@ -29,16 +30,28 @@ var RoomSchema = new Schema({
       default: 'rgb(55, 191, 92);'
     }
   }],
+  colors: [{
+    type: String
+  }],
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
 
+RoomSchema.pre('save', function(next) {
+  if (this.isNew) {
+    this.colors = colorize.availableColors;
+  }
+
+  next();
+});
+
 RoomSchema.methods = {
   addUser: function(userId, cb) {
     this.users.push({
-      userId: userId
+      userId: userId,
+      userColor: this.getColor()
     });
 
     this.save(cb);
@@ -48,6 +61,7 @@ RoomSchema.methods = {
 
     this.users.some(function(user, pos) {
       if (user.userId === userId) {
+        _this.setColor(user.userColor);
         _this.users.splice(pos, 1);
       }
     });
@@ -62,6 +76,23 @@ RoomSchema.methods = {
     });
 
     this.save(cb);
+  },
+  getColor: function() {
+    if (this.colors.length) {
+      return this.colors.pop();
+    } else {
+      var r = Math.round((Math.random() * 255) / 2);
+      var g = Math.round((Math.random() * 255) / 2);
+      var b = Math.round((Math.random() * 255) / 2);
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+
+    this.save();
+  },
+  setColor: function(color) {
+    this.colors.push(color);
+
+    this.save();
   }
 };
 
