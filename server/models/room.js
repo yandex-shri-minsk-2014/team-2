@@ -58,15 +58,18 @@ RoomSchema.methods = {
   },
   removeUser: function(userId, cb) {
     var _this = this;
+    var foundUser = false;
 
     this.users.some(function(user, pos) {
       if (user.userId === userId) {
         _this.setColor(user.userColor);
         _this.users.splice(pos, 1);
+        foundUser = true;
       }
     });
 
-    this.save(cb);
+    this.save();
+    cb(foundUser);
   },
   userSetCursor: function(userId, position, cb) {
     this.users.some(function(user) {

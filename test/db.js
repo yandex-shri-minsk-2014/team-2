@@ -4,30 +4,42 @@ var chai = require('chai');
 var should = chai.expect;
 var chaiAsPromised = require('chai-as-promised');
 var db = require('../server/db.js');
-var Room = require('../server/room.js');
+var mongoose = require('mongoose');
+var Room = require('../server/models/room');
+var User = require('../server/models/user');
+
+mongoose.connect('mongodb://localhost/testMeepo');
+var connection = mongoose.connection;
 
 chai.use(chaiAsPromised);
 
 describe('db', function() {
+
+  beforeEach(function(done) {
+    connection.db.dropDatabase();
+    done();
+  });
+
+  after(function(done) {
+    connection.close();
+    done();
+  })
 
   describe('room', function() {
 
 
     describe('create()', function() {
 
-      beforeEach(function(done){
-        db.__clearRooms().then(function() {
-          done();
-        });
-      });
-
       it('should create room', function() {
-        return should(db.room.create(1)).to.eventually.be.instanceof(Room);
+        return should(db.room.create(1)).to.eventually.an.instanceof(Room)
+          .that.eventually.have.property('roomId', '1');
       });
 
       it('should return early created room', function() {
         return db.room.create(1).then(function(room) {
-          return should(db.room.create(1)).to.eventually.deep.equal(room);
+          // return should(db.room.create(1)).to.eventually.deep.equal(room);
+          return should(db.room.create(1)).to.eventually.an.instanceof(Room)
+            .that.eventually.have.property('roomId', '1');
         });
       });
 
@@ -37,9 +49,7 @@ describe('db', function() {
     describe('getRoom()', function() {
 
       beforeEach(function(done) {
-        db.__clearRooms().then(function() {
-          return db.room.create(1);
-        }).then(function() {
+        db.room.create(1).then(function() {
           done();
         });
       });
@@ -56,13 +66,11 @@ describe('db', function() {
 
 
     describe('update.addUser()', function() {
-      var user;
+      var user = {userId: 1, userName: 'Vasya'};
 
       beforeEach(function(done){
-        user = { userId: 1 };
-        db.__clearRooms().then(function() {
-          return db.room.create(1);
-        }).then(function() {
+        connection.db.dropDatabase();
+        db.room.create(1).then(function() {
           done();
         });
       });
@@ -73,6 +81,10 @@ describe('db', function() {
         });
       });
 
+      it('shoild be rejected If no field name', function() {
+        return should(db.room.update.addUser(1, {id: 2})).to.be.rejected;
+      });
+
       it('should be rejected if room doesnt exist', function() {
         return should(db.room.update.addUser(2, user)).to.be.rejected;
       });
@@ -81,14 +93,13 @@ describe('db', function() {
 
 
     describe('update.removeUser()', function() {
-      var userId;
+      var userId = '1';
+      var user = {userId: userId, userName: 'Vasya'};
 
       beforeEach(function(done){
-        userId = 1;
-        db.__clearRooms().then(function() {
-          return db.room.create(1);
-        }).then(function() {
-          return db.room.update.addUser(1, {userId: userId});
+        connection.db.dropDatabase();
+        db.room.create(1).then(function() {
+          return db.room.update.addUser(1, user);
         }).then(function() {
           done();
         });
@@ -116,20 +127,20 @@ describe('db', function() {
 
 
     describe('getUsers()', function() {
-      var user;
+      var userId = '1';
+      var userName = 'Vasya';
+      var user = {userId: userId, userName: userName};
 
       beforeEach(function(done){
-        user = { userId: 1 };
-        db.__clearRooms().then(function() {
-          return db.room.create(1);
-        }).then(function() {
+        connection.db.dropDatabase();
+        db.room.create(1).then(function() {
           done();
         });
       });
 
       it('should return users from room', function() {
         return db.room.update.addUser(1, user).then(function() {
-          return should(db.room.getUsers(1)).to.eventually.deep.equal([user]);
+          return should(db.room.getUsers(1)).to.eventually.deep.equal(['userColor']);
         });
       });
 
@@ -141,14 +152,15 @@ describe('db', function() {
 
     describe('user.setCursor()', function() {
       var roomId = 1;
-      var userId = 1;
+      var userId = '1';
+      var userName = 'Vasya';
+      var user = {userId: userId, userName: userName};
       var cursor = {row: 1, collumn: 1};
 
       beforeEach(function(done){
-        db.__clearRooms().then(function() {
-          return db.room.create(roomId);
-        }).then(function() {
-          return db.room.update.addUser(roomId, {userId: userId});
+        connection.db.dropDatabase();
+        db.room.create(roomId).then(function() {
+          return db.room.update.addUser(roomId, user);
         }).then(function() {
           done();
         });
@@ -167,12 +179,13 @@ describe('db', function() {
     });
 
     describe('user.get()', function() {
-      var user = { userId: 1 };
+      var userId = '1';
+      var userName = 'Vasya';
+      var user = {userId: userId, userName: userName};
 
       beforeEach(function(done){
-        db.__clearRooms().then(function() {
-          return db.room.create(1);
-        }).then(function() {
+        connection.db.dropDatabase();
+        db.room.create(1).then(function() {
           return db.room.update.addUser(1, user);
         }).then(function() {
           done();
@@ -180,7 +193,7 @@ describe('db', function() {
       });
 
       it('should return user from room', function() {
-        return should(db.room.user.get(1, 1)).to.eventually.deep.equal(user);
+        return should(db.room.user.get(1, userId)).to.eventually.deep.equal(user);
       });
 
       it('should be rejected if room doesnt exist', function() {

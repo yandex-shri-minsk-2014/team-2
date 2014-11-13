@@ -2,19 +2,10 @@
 'use strict';
 
 var Promise = require('es6-promise').Promise;
-var mongoose = require('./libs/mongoose');
+// var mongoose = require('./libs/mongoose');
 var RoomModel = require('./models/room');
 var UserModel = require('./models/user');
 var faker = require('Faker');
-
-var rooms = {};
-
-function clearRooms() {
-  return new Promise(function(resolve) {
-    rooms = {};
-    resolve();
-  });
-}
 
 function createRoom(roomId) {
   return new Promise(function(resolve, reject) {
@@ -112,12 +103,8 @@ function removeUserFromRoom(roomId, userId) {
       if (err) {
         reject(err);
       } else if (room) {
-        room.removeUser(userId, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
+        room.removeUser(userId, function(found) {
+          resolve(found);
         });
       } else {
         reject();
@@ -161,7 +148,6 @@ function getUser(roomId, userId) {
 }
 
 module.exports = {
-  __clearRooms: clearRooms,
   room: {
     create: createRoom,
     get: getRoom,
