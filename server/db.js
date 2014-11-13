@@ -2,7 +2,6 @@
 'use strict';
 
 var Promise = require('es6-promise').Promise;
-// var mongoose = require('./libs/mongoose');
 var RoomModel = require('./models/room');
 var UserModel = require('./models/user');
 var faker = require('Faker');
@@ -48,7 +47,7 @@ function getUsersFromRoom(roomId) {
       if (err) {
         reject(err);
       } else if (foundUsers) {
-        resolve(foundUsers.users);
+        resolve(foundUsers);
       } else {
         reject();
       }
@@ -59,7 +58,7 @@ function getUsersFromRoom(roomId) {
 function addUserToRoom(roomId, user) {
   return new Promise(function(resolve, reject) {
     // пока нет регистрации
-    UserModel.findOne({_id: user.userId}, function(err, foundUser) {
+    UserModel.findOne({id: user.userId}, function(err, foundUser) {
       if (err) {
         reject(err);
       } else if (foundUser) {

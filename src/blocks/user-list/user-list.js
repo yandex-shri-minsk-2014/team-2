@@ -13,7 +13,7 @@ function onUsersUpdate(users) {
         .append(
           $('<figure class="user__color">').css('backgroundColor', user.userColor)
         )
-        .append(user.userId.name)
+        .append(user.userName)
     );
   });
 }

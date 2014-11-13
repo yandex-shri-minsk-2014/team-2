@@ -29,7 +29,7 @@ module.exports = function(a) {
   }
 
   function updateCursorMarker(data) {
-    if (me.id() === data.userId._id) {
+    if (me.id() === data.userId) {
       return true;
     }
 
@@ -39,7 +39,7 @@ module.exports = function(a) {
 
     var markerId = editor.session.addMarker(range, 'ace_selection', drawMarker, true);
 
-    cursorMarkers[data.userId._id] = {
+    cursorMarkers[data.userId] = {
       markerId: markerId,
       cursor: data.userCursor
     };
@@ -68,13 +68,13 @@ module.exports = function(a) {
       stringBuilder.push('<div class="ace_selection ace_marker_name" style="',
         'left:', left, 'px;', 'top:', namePosTop, 'px;',
         color,
-      '">', data.userId.name, '</div>');
+      '">', data.userName, '</div>');
     }
   }
 
   function removeMarker(data) {
-    if (cursorMarkers.hasOwnProperty(data.userId._id)) {
-      editor.session.removeMarker(cursorMarkers[data.userId._id].markerId);
+    if (cursorMarkers.hasOwnProperty(data.userId)) {
+      editor.session.removeMarker(cursorMarkers[data.userId].markerId);
     }
   }
 

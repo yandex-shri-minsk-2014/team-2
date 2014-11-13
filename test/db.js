@@ -37,7 +37,6 @@ describe('db', function() {
 
       it('should return early created room', function() {
         return db.room.create(1).then(function(room) {
-          // return should(db.room.create(1)).to.eventually.deep.equal(room);
           return should(db.room.create(1)).to.eventually.an.instanceof(Room)
             .that.eventually.have.property('roomId', '1');
         });
@@ -140,7 +139,9 @@ describe('db', function() {
 
       it('should return users from room', function() {
         return db.room.update.addUser(1, user).then(function() {
-          return should(db.room.getUsers(1)).to.eventually.deep.equal(['userColor']);
+          return should(db.room.getUsers(1)).to.eventually.deep.property('[0].userId', userId);
+        }).then(function() {
+          return should(db.room.getUsers(1)).to.eventually.deep.property('[0].userName', userName);
         });
       });
 
@@ -157,7 +158,7 @@ describe('db', function() {
       var user = {userId: userId, userName: userName};
       var cursor = {row: 1, collumn: 1};
 
-      beforeEach(function(done){
+      beforeEach(function(done) {
         connection.db.dropDatabase();
         db.room.create(roomId).then(function() {
           return db.room.update.addUser(roomId, user);
@@ -168,7 +169,9 @@ describe('db', function() {
 
       it('should set cursor user', function() {
         return db.room.user.setCursor(roomId, userId, cursor).then(function() {
-          return should(db.room.user.get(roomId, userId)).to.eventually.deep.property('cursor', cursor);
+          return should(db.room.user.get(roomId, userId)).to.eventually.deep.property('userCursor.row', cursor.row);
+        }).then(function() {
+          return should(db.room.user.get(roomId, userId)).to.eventually.deep.property('userCursor.collumn', cursor.collumn);
         });
       });
 
@@ -186,14 +189,16 @@ describe('db', function() {
       beforeEach(function(done){
         connection.db.dropDatabase();
         db.room.create(1).then(function() {
-          return db.room.update.addUser(1, user);
-        }).then(function() {
           done();
         });
       });
 
       it('should return user from room', function() {
-        return should(db.room.user.get(1, userId)).to.eventually.deep.equal(user);
+        return db.room.update.addUser(1, user).then(function() {
+          return should(db.room.user.get(1, userId)).to.eventually.deep.property('userId', userId);
+        }).then(function() {
+          return should(db.room.user.get(1, userId)).to.eventually.deep.property('userName', userName);
+        });
       });
 
       it('should be rejected if room doesnt exist', function() {

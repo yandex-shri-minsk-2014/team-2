@@ -6,6 +6,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var settings = require('./../package.json').settings;
+var mongoose = require('./libs/mongoose')();
 var db = require('./db.js');
 var sharejs = require('share');
 var id = require('./libs/idGenerator');
@@ -17,6 +18,8 @@ app.use(express.static(__dirname + '/../build'));
 app.get('/:id', function(req, res) {
   res.sendFile(path.resolve('build/index.html'));
 });
+
+mongoose.connect();
 
 io.on('connection', function(socket) {
 

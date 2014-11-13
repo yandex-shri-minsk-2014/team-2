@@ -50,12 +50,8 @@ UserSchema.virtual('id')
 
 UserSchema.virtual('password')
   .set(function(password) {
-    this._plainPassword = password;
     this.salt = crypto.randomBytes(32).toString('base64');
     this.hashedPassword = this.encryptPassword(password);
-  })
-  .get(function() {
-    return this._plainPassword;
   });
 
 var UserModel = mongoose.model('User', UserSchema);

@@ -2,9 +2,18 @@
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/meepo');
-mongoose.connection.on('error', function(err) {
-    console.log('connection error:', err.message);
-});
+module.exports = function() {
+  var connect = function(db) {
+    db = db || 'meppo';
 
-module.exports.mongoose = mongoose;
+    mongoose.connect('mongodb://localhost/' + db);
+
+    mongoose.connection.on('error', function(err) {
+      console.log('connection error:', err.message);
+    });
+  };
+
+  return {
+    connect: connect
+  };
+};

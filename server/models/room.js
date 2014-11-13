@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var colorize = require('../libs/colorize')();
+var colorize = require('../libs/colorize');
 
 var Schema = mongoose.Schema;
 
@@ -16,7 +16,7 @@ var RoomSchema = new Schema({
     ref: 'User'
   },
   users: [{
-    userId: {
+    user: {
       type: String,
       // type: Schema.ObjectId,
       ref: 'User'
@@ -41,7 +41,7 @@ var RoomSchema = new Schema({
 
 RoomSchema.pre('save', function(next) {
   if (this.isNew) {
-    this.colors = colorize.availableColors;
+    this.colors = colorize();
   }
 
   next();
@@ -50,7 +50,7 @@ RoomSchema.pre('save', function(next) {
 RoomSchema.methods = {
   addUser: function(userId, cb) {
     this.users.push({
-      userId: userId,
+      user: userId,
       userColor: this.getColor()
     });
 
@@ -61,7 +61,7 @@ RoomSchema.methods = {
     var foundUser = false;
 
     this.users.some(function(user, pos) {
-      if (user.userId === userId) {
+      if (user.user === userId) {
         _this.setColor(user.userColor);
         _this.users.splice(pos, 1);
         foundUser = true;
@@ -73,7 +73,7 @@ RoomSchema.methods = {
   },
   userSetCursor: function(userId, position, cb) {
     this.users.some(function(user) {
-      if (user.userId === userId) {
+      if (user.user === userId) {
         user.userCursor = position;
       }
     });
@@ -105,24 +105,43 @@ RoomSchema.statics = {
   },
   getUsers: function(roomId, cb) {
     this.findOne({roomId: roomId})
-      .populate('users.userId', 'name')
-      .exec(cb);
+      .populate('users.user', 'name')
+      .exec(function(err, data) {
+        if (err || !data) {
+          cb(err, null);
+        } else {
+          var resUsers = [];
+          data.users.some(function(user) {
+            resUsers.push(transformUser(user));
+          });
+          cb(null, resUsers);
+        }
+      });
   },
   getUser: function(roomId, userId, cb) {
-    this.findOne({roomId: roomId, 'users.userId': userId})
-      .populate('users.userId', 'name')
+    this.findOne({roomId: roomId, 'users.user': userId})
+      .populate('users.user', 'name')
       .exec(function(err, data) {
         if (err || !data) {
           cb(err, null);
         } else {
           data.users.some(function(user) {
-            if (user.userId._id === userId) {
-              cb(null, user);
+            if (user.user._id === userId) {
+              cb(null, transformUser(user));
             }
           });
         }
       });
   }
+};
+
+var transformUser = function(user) {
+  var resUser = {};
+  resUser.userId = user.user._id;
+  resUser.userName = user.user.name;
+  resUser.userColor = user.userColor;
+  resUser.userCursor = user.userCursor;
+  return resUser;
 };
 
 var RoomModel = mongoose.model('Room', RoomSchema);
