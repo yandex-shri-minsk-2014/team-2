@@ -146,6 +146,45 @@ function getUser(roomId, userId) {
   });
 }
 
+function userLocalRegister(userName, userPassword) {
+  return new Promise(function(resolve, reject) {
+    UserModel.findUserByName(userName, function(err, user) {
+      if (err) {
+        reject(err);
+      } else if (user) {
+        resolve(false);
+      } else {
+        user = new UserModel({name: userName, password: userPassword});
+        user.save(function(err, user) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(user);
+          }
+        });
+      }
+    });
+  });
+}
+
+function userLocalAuth(userName, userPassword) {
+  return new Promise(function(resolve, reject) {
+    UserModel.findUserByName(userName, function(err, user) {
+      if (err) {
+        reject(err);
+      } else if (user) {
+        if (user.checkPassword(userPassword)) {
+          resolve(user);
+        } else {
+          resolve(false);
+        }
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 module.exports = {
   room: {
     create: createRoom,
@@ -159,5 +198,9 @@ module.exports = {
       setCursor: userUpdateCursorPosition,
       get: getUser
     }
+  },
+  user: {
+    localReg: userLocalRegister,
+    localAuth: userLocalAuth
   }
 };

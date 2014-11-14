@@ -15,6 +15,12 @@ var RoomSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
+  name: {
+    type: String
+  },
+  description: {
+    type: String
+  },
   users: [{
     user: {
       type: String,
@@ -56,13 +62,14 @@ RoomSchema.methods = {
 
     this.save(cb);
   },
+
   removeUser: function(userId, cb) {
     var _this = this;
     var foundUser = false;
 
     this.users.some(function(user, pos) {
       if (user.user === userId) {
-        _this.setColor(user.userColor);
+        _this.restoreColor(user.userColor);
         _this.users.splice(pos, 1);
         foundUser = true;
       }
@@ -71,6 +78,7 @@ RoomSchema.methods = {
     this.save();
     cb(foundUser);
   },
+
   userSetCursor: function(userId, position, cb) {
     this.users.some(function(user) {
       if (user.user === userId) {
@@ -80,6 +88,7 @@ RoomSchema.methods = {
 
     this.save(cb);
   },
+
   getColor: function() {
     if (this.colors.length) {
       return this.colors.pop();
@@ -92,7 +101,8 @@ RoomSchema.methods = {
 
     this.save();
   },
-  setColor: function(color) {
+
+  restoreColor: function(color) {
     this.colors.push(color);
 
     this.save();
@@ -103,6 +113,7 @@ RoomSchema.statics = {
   getRoom: function(roomId, cb) {
     this.findOne({roomId: roomId}, cb);
   },
+
   getUsers: function(roomId, cb) {
     this.findOne({roomId: roomId})
       .populate('users.user', 'name')
@@ -118,6 +129,7 @@ RoomSchema.statics = {
         }
       });
   },
+
   getUser: function(roomId, userId, cb) {
     this.findOne({roomId: roomId, 'users.user': userId})
       .populate('users.user', 'name')

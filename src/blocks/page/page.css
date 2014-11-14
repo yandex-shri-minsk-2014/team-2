@@ -26,6 +26,6 @@ body.theme_dark {
 }
 
 
-a {
+a, input {
   color: #4c6a72;
 }

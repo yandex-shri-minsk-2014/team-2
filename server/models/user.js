@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  _id: String, // пока нет регистрации
+  // _id: String, // пока нет регистрации
   name: {
     type: String,
     required: true
@@ -24,6 +24,13 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  rooms: [{
+    room: {
+      type: String,
+      // type: Schema.ObjectId,
+      ref: 'Room'
+    }
+  }],
   created: {
     type: Date,
     default: Date.now
@@ -37,6 +44,36 @@ UserSchema.methods = {
 
   checkPassword: function(password) {
     return this.encryptPassword(password) === this.hashedPassword;
+  },
+
+  addRoom: function(roomId, cb) {
+    this.rooms.push({
+      room: roomId,
+    });
+
+    this.save(cb);
+  },
+
+  deleteRoom: function(roomId, cb) {
+    var _this = this;
+
+    this.rooms.some(function(room, pos) {
+      if (room.room === roomId) {
+        _this.rooms.splice(pos, 1);
+      }
+    });
+
+    this.save(cb);
+  }
+};
+
+UserSchema.statics = {
+  getUser: function(userId, cb) {
+    this.findOne({id: userId}, cb);
+  },
+
+  findUserByName: function(userName, cb) {
+    this.findOne({name: userName}, cb);
   }
 };
 

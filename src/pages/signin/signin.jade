@@ -3,4 +3,6 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title Meepo
+    link(rel='stylesheet', href='css/signin.css')
   body.theme_dark
+    +form('/local-auth', 'Sign in')

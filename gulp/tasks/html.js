@@ -12,7 +12,7 @@ gulp.task('html', ['tree'], function () {
           path: page.path + '/' + page.id + '.jade',
           base: page.path
       }))
-      .pipe(jade({pretty: true}))
+      // .pipe(jade({pretty: true}))
       .pipe(gulp.dest(config.html.dest));
   }
 

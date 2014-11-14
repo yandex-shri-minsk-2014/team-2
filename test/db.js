@@ -7,13 +7,16 @@ var db = require('../server/db.js');
 var mongoose = require('mongoose');
 var Room = require('../server/models/room');
 var User = require('../server/models/user');
-
-mongoose.connect('mongodb://localhost/testMeepo');
-var connection = mongoose.connection;
+var connection;
 
 chai.use(chaiAsPromised);
 
 describe('db', function() {
+
+  before(function(done) {
+    mongoose.connect('mongodb://localhost/testMeepo');
+    connection = mongoose.connection;
+  });
 
   beforeEach(function(done) {
     connection.db.dropDatabase();

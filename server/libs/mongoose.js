@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 module.exports = function() {
   var connect = function(db) {
-    db = db || 'meppo';
+    db = db || 'meepo';
 
     mongoose.connect('mongodb://localhost/' + db);
 
