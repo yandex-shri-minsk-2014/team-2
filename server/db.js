@@ -6,24 +6,30 @@ var RoomModel = require('./models/room');
 var UserModel = require('./models/user');
 var faker = require('Faker');
 
-function createRoom(roomId) {
+function createRoom(room, creator) {
   return new Promise(function(resolve, reject) {
-    RoomModel.getRoom(roomId, function(err, room) {
-      if (err) {
-        reject(err);
-      } else if (room) {
-        resolve(room);
-      } else {
-        room = new RoomModel({roomId: roomId});
-        room.save(function(err, room) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(room);
-          }
-        });
-      }
-    });
+
+    var roomName = room.projectname;
+    var roomDescrip = room.description;
+    var roomReadOnly = room.readonly;
+    if (!roomName) {
+      reject('Project Name not specified');
+    }
+    if (roomReadOnly === 'on') {
+      roomReadOnly = true;
+    }
+
+    room = new RoomModel({name: roomName, description: roomDescrip, readOnly: roomReadOnly, creator: creator});
+      room.save(function(err, room) {
+        if (err) {
+          reject(err);
+        } else {
+          UserModel.getUser(creator, function(err, user) {
+            user.addRoom(room.id);
+          })
+          resolve(room);
+        }
+      });
   });
 }
 
@@ -154,7 +160,7 @@ function userLocalRegister(userName, userPassword) {
       } else if (user) {
         resolve(false);
       } else {
-        user = new UserModel({name: userName, password: userPassword});
+        user = new UserModel({username: userName, password: userPassword});
         user.save(function(err, user) {
           if (err) {
             reject(err);

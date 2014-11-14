@@ -16,6 +16,7 @@ describe('db', function() {
   before(function(done) {
     mongoose.connect('mongodb://localhost/testMeepo');
     connection = mongoose.connection;
+    done();
   });
 
   beforeEach(function(done) {

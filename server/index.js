@@ -23,7 +23,11 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({secret: 'meepo', saveUninitialized: true, resave: true}));
+var sessionMiddleware = session({secret: 'meepo', saveUninitialized: true, resave: true});
+app.use(sessionMiddleware);
+io.use(function(socket, next) {
+  sessionMiddleware(socket.request, {}, next);
+});
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
@@ -51,12 +55,13 @@ app.use(express.static(__dirname + '/../build'));
 app.set('views', __dirname + '/../build');
 app.set('view engine', 'jade');
 
-require('./routes')(app);
+require('./routes')(app, db);
 require('./libs/passportLocal')(passport);
 
 mongoose.connect();
 
 io.on('connection', function(socket) {
+  socket.userId = socket.request.session.passport.user._id;
 
   socket.on('connectToRoom', function(roomId) {
     if (!roomId) {
@@ -64,8 +69,6 @@ io.on('connection', function(socket) {
       socket.emit('changeRoom', {roomId: roomId});
     }
 
-    socket.roomId = roomId;
-    db.room.create(roomId);
     socket.join(roomId);
   });
 

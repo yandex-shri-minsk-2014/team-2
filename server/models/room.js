@@ -2,29 +2,37 @@
 
 var mongoose = require('mongoose');
 var colorize = require('../libs/colorize');
+var id = require('../libs/idGenerator');
 
 var Schema = mongoose.Schema;
 
 var RoomSchema = new Schema({
-  roomId: {
-    type: String,
-    require: true,
-    unique: true
-  },
   creator: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    require: true
+  },
+  docName: {
+    type: String,
+    unique: true,
+    require: true
   },
   name: {
-    type: String
+    type: String,
+    require: true,
   },
   description: {
-    type: String
+    type: String,
+    default: ''
+  },
+  readOnly: {
+    type: Boolean,
+    default: false
   },
   users: [{
     user: {
-      type: String,
-      // type: Schema.ObjectId,
+      // type: String,
+      type: Schema.ObjectId,
       ref: 'User'
     },
     userCursor: {
@@ -48,6 +56,7 @@ var RoomSchema = new Schema({
 RoomSchema.pre('save', function(next) {
   if (this.isNew) {
     this.colors = colorize();
+    this.docName = id();
   }
 
   next();
@@ -104,7 +113,7 @@ RoomSchema.methods = {
 
   restoreColor: function(color) {
     this.colors.push(color);
-
+roo
     this.save();
   }
 };
@@ -147,10 +156,18 @@ RoomSchema.statics = {
   }
 };
 
+RoomSchema.virtual('id')
+  .set(function(id) {
+    this._id = id;
+  })
+  .get(function() {
+    return this._id;
+  });
+
 var transformUser = function(user) {
   var resUser = {};
   resUser.userId = user.user._id;
-  resUser.userName = user.user.name;
+  resUser.userName = user.user.username;
   resUser.userColor = user.userColor;
   resUser.userCursor = user.userCursor;
   return resUser;

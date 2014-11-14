@@ -7,5 +7,8 @@ module.exports.require = [
   },
   {
     block: 'button'
+  },
+  {
+    block: 'head'
   }
 ];

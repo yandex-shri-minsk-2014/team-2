@@ -6,16 +6,17 @@ var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  // _id: String, // пока нет регистрации
-  name: {
+  username: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
-  // id: {
-  //   type: String,
-  //   required: true,
-  //   unique: true
-  // },
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type: String
+  },
   hashedPassword: {
     type: String,
     required: true
@@ -26,8 +27,7 @@ var UserSchema = new Schema({
   },
   rooms: [{
     room: {
-      type: String,
-      // type: Schema.ObjectId,
+      type: Schema.ObjectId,
       ref: 'Room'
     }
   }],
@@ -69,11 +69,15 @@ UserSchema.methods = {
 
 UserSchema.statics = {
   getUser: function(userId, cb) {
-    this.findOne({id: userId}, cb);
+    this.findById(userId)
+      .populate('rooms.room', 'name description docName readOnly')
+      .exec(cb);
   },
 
   findUserByName: function(userName, cb) {
-    this.findOne({name: userName}, cb);
+    this.findOne({username: userName})
+      .populate('rooms.room', 'name description docName readOnly')
+      .exec(cb);
   }
 };
 
@@ -89,6 +93,11 @@ UserSchema.virtual('password')
   .set(function(password) {
     this.salt = crypto.randomBytes(32).toString('base64');
     this.hashedPassword = this.encryptPassword(password);
+  });
+
+UserSchema.virtual('fullname')
+  .get(function() {
+    return this.firstName + ' ' + this.lastName;
   });
 
 var UserModel = mongoose.model('User', UserSchema);

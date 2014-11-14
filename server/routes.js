@@ -2,14 +2,14 @@
 
 var passport = require('passport');
 
-module.exports = function(app) {
+module.exports = function(app, db) {
 
   app.get('/', function(req, res) {
     res.render('signin');
   });
 
   app.post('/local-auth', passport.authenticate('local-signin', {
-      successRedirect: '/qwe',
+      successRedirect: '/projects',
       failureRedirect: '/'
     })
   );
@@ -19,21 +19,38 @@ module.exports = function(app) {
   });
 
   app.post('/local-reg', passport.authenticate('local-signup', {
-      successRedirect: '/qwe',
+      successRedirect: '/projects',
       failureRedirect: '/signup'
     })
   );
 
   app.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
+    req.session.destroy(function (err) {
+      res.redirect('/');
+    });
+  });
+
+  app.get('/projects', ensureAuthenticated, function(req, res) {
+    var name = req.user.username;
+    var rooms = req.user.rooms;
+    res.render('projects', {user: name, projects: rooms});
+  });
+
+  app.post('/new-project', function(req, res) {
+    db.room.create(req.body, req.user._id).then(function(room) {
+      res.redirect('/' + room.docName);
+    }, function(err) {
+      console.log(err);
+      req.session.error = err;
+      res.redirect('/projects');
+    });
   });
 
   app.get('/:id', ensureAuthenticated, function(req, res) {
     if (!req.user) {
       res.redirect('/');
     } else {
-      var name = req.user.name;
+      var name = req.user.username;
       res.render('index', {user: name});
       // res.sendFile(path.resolve('build/index.html'));
     }
