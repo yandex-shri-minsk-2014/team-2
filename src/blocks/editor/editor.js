@@ -21,7 +21,7 @@ module.exports = function(editorName) {
 
   function init() {
     sbPosition = $('#statusbar__position');
-    var docName = document.location.hash.slice(1);
+    var docName = document.location.pathname.slice(1);
     openDocument(docName);
   }
 
