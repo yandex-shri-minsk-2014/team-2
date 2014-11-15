@@ -40,3 +40,13 @@
 
   margin: 5px 0;
 }
+
+.projects__list {
+  overflow: auto;
+
+  margin: 0;
+  padding: 0;
+  height: inherit;
+
+  list-style: none;
+}

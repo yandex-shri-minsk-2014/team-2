@@ -10,7 +10,10 @@ html(lang='en')
       if (projects)
         .splitview__panel.splitview__panel_project
           h1 My Projects
-          each val, index in projects
-            a(href=val.room.docName)= val.room.name + ' ' + val.room.description
+          ul.projects__list
+            each val, index in projects
+              li
+                a(href=val.room.docName)= val.room.name
+                p= val.room.description
       .splitview__panel.splitview__panel_project
         +newProject

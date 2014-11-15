@@ -33,7 +33,12 @@ module.exports = function(app, db) {
   app.get('/projects', ensureAuthenticated, function(req, res) {
     var name = req.user.username;
     var rooms = req.user.rooms;
-    res.render('projects', {user: name, projects: rooms});
+
+    db.user.getById(req.user._id).then(function(user) {
+      rooms = user.rooms;
+
+      res.render('projects', {user: name, projects: rooms});
+    });
   });
 
   app.post('/new-project', function(req, res) {

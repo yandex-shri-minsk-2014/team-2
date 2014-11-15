@@ -191,6 +191,20 @@ function userLocalAuth(userName, userPassword) {
   });
 }
 
+function getUserById(userId) {
+  return new Promise(function(resolve, reject) {
+    UserModel.getUser(userId, function(err, user) {
+      if (err) {
+        reject(err);
+      } else if (user) {
+        resolve(user);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 module.exports = {
   room: {
     create: createRoom,
@@ -207,6 +221,7 @@ module.exports = {
   },
   user: {
     localReg: userLocalRegister,
-    localAuth: userLocalAuth
+    localAuth: userLocalAuth,
+    getById: getUserById
   }
 };

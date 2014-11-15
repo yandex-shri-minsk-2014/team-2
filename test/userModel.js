@@ -7,12 +7,12 @@ var db;
 
 describe('UserModel', function() {
 
-  beforeEach(function() {
+  before(function() {
     mongoose.connect('mongodb://localhost/meepoTest');
     db = mongoose.connection;
   });
 
-  afterEach(function() {
+  after(function() {
     db.close();
   });
 });

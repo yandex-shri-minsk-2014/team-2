@@ -3,6 +3,7 @@ mixin head(invisibility, signupVisible, signinVisible)
     .head__left
       .head__title Meepo
       .head__menu(class=invisibility ? 'head__visible_hidden' : '')
+        a(href='/projects') My Projects
         a(href='/setting') Setting
     .head__right(class=invisibility ? 'head__visible_hidden' : '')
       .head__user.user__name #{user}
