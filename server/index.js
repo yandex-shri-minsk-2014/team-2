@@ -10,7 +10,7 @@ var db = require('./db.js');
 var sharejs = require('share');
 var id = require('./libs/idGenerator');
 
-var SERVER_PORT = 3003;
+var SERVER_PORT = 3000;
 
 app.use(express.static(__dirname + '/../build'));
 
