@@ -2,6 +2,7 @@
 
 var connection = require('../../js/connection');
 var guard = require('./guard');
+var me = require('../../js/me');
 
 var editor = require('../editor/editor')('ace');
 
@@ -9,13 +10,12 @@ editor.init();
 getUserName();
 
 function getUserName() {
-  var userName = localStorage.getItem('app_userName') || guard.askTheName();
+  var userName = me.name() || guard.askTheName();
   connection.verifyUserName(userName, function(ans) {
     if (!ans) {
-      localStorage.removeItem('app_userName');
       getUserName();
     } else {
-      localStorage.setItem('app_userName', userName);
+      me.name(userName);
       connection.connect(userName);
     }
   });
