@@ -1,0 +1,55 @@
+.head {
+  font-size: .8em;
+  line-height: 40px;
+
+  position: relative;
+
+  height: 40px;
+  /*margin-bottom: -40px;*/
+
+  text-align: right;
+
+  color: #4c6a72;
+  background-color: #fbeecb;
+  box-shadow: 0 -2px 0 0 #657b83 inset;
+
+  flex-shrink: 0;
+}
+
+.theme_dark .head {
+  color: #4c6a72;
+  background-color: #00222b;
+}
+
+.head__left {
+  position: absolute;
+  left: 0;
+
+  display: inline-block;
+}
+
+.head__title {
+  font-size: 16px;
+
+  display: inline-block;
+
+  margin: 0 15px;
+}
+
+.head__menu {
+  display: inline-block;
+}
+
+.head__menu a {
+  padding: 0 5px;
+}
+
+.head__right {
+  display: inline-block;
+}
+
+.head__user {
+  display: inline;
+
+  margin: 0 15px;
+}

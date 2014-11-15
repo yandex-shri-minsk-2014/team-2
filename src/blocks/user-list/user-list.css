@@ -1,5 +1,8 @@
-.user-list
-{
+.user-list {
+  overflow: auto;
+
+  width: 100%;
+  height: calc(100% - 40px);
   margin: 0;
   padding: 0;
 

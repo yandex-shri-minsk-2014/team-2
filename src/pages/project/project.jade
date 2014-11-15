@@ -3,7 +3,7 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title Meepo
-    link(rel='stylesheet', href='css/index.css')
+    link(rel='stylesheet', href='css/project.css')
   body.theme_dark
     +head
     .splitview
@@ -13,8 +13,6 @@ html(lang='en')
         .tabs
           +tab('Online:', true)
             +user-list
-          +tab('Settings:', false)
-            +setting
     +statusbar
 
     script(src='/channel/bcsocket.js')

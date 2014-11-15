@@ -7,10 +7,6 @@
   bottom: 0;
 }
 
-.ace_marker-layer {
-  z-index: 8;
-}
-
 .ace_marker_caret {
   width: 2px;
 }
@@ -32,7 +28,7 @@
   font-size: 10px;
 
   color: #fff;
-  z-index: 99;
+  z-index: 99!important;
 }
 .ace_marker_showname {
   opacity: .1;

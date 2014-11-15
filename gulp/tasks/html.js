@@ -9,7 +9,7 @@ gulp.task('html', ['tree'], function () {
     return global.tree.deps(config.tree.pagesPath + '/' + page.id)
       .pipe(bem.src('{bem}.jade'))
       .pipe(concat({
-          path: page.path + '/index.jade',
+          path: page.path + '/' + page.id + '.jade',
           base: page.path
       }))
       .pipe(jade({pretty: true}))

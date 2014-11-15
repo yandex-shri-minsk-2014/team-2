@@ -1,32 +1,28 @@
 .user {
-  position: relative;
-
   font-size: 13px;
   line-height: 13px;
 
+  position: relative;
+
+  overflow: hidden;
+
   padding: 18px 5px 10px 36px;
 
-  color: #fff;
-
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .user__color {
-  display: block;
-
-  width: 16px;
-  height: 16px;
-
-  margin: 0;
-
+  position: absolute;
   top: 17px;
   left: 10px;
 
-  position: absolute;
-
-  border-radius: 4px;
+  display: block;
 
   box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  border-radius: 4px;
 }
