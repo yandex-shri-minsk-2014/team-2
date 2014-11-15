@@ -77,7 +77,12 @@ function userUpdateCursorPosition(roomId, userId, cursorPosition) {
 function getUser(roomId, userId) {
   return new Promise(function(resolve, reject) {
     getRoom(roomId).then(function(room) {
-      resolve(room.getUser(userId));
+      var user = room.getUser(userId);
+      if (user) {
+        resolve(user);
+      } else {
+        reject();
+      }
     }).catch(function() {
       reject();
     });
