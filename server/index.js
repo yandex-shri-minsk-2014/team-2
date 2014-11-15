@@ -15,7 +15,7 @@ var SERVER_PORT = 3000;
 app.use(express.static(__dirname + '/../build'));
 
 app.get('/:id', function(req, res) {
-  res.sendFile(path.resolve('build/index.html'));
+  res.sendFile(path.join(__dirname, '/../build/index.html'));
 });
 
 io.on('connection', function(socket) {
