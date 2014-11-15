@@ -1,5 +1,6 @@
 'use strict';
 
+require('../../js/voiceCommander');
 var connection = require('../../js/connection');
 var guard = require('./guard');
 var me = require('../../js/me');
