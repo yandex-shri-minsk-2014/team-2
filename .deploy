@@ -1,0 +1,8 @@
+{
+    "dev" : {
+        "url" : "http://admin:admin@team-2.shpilevsky.com:15478"
+    },
+    "staging" : {
+        "url" : "http://admin:admin@team-2.shpilevsky.com:15478"
+    }
+}
