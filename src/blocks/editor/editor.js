@@ -16,6 +16,9 @@ module.exports = function(editorName) {
 
   socket.on('markerUpdate', editor.updateCursorMarker);
   socket.on('markerRemove', editor.removeMarker);
+  socket.on('changeRoom', function(data) {
+    openDocument(data.roomId);
+  });
 
   var sbPosition;
 
@@ -26,6 +29,11 @@ module.exports = function(editorName) {
   }
 
   function openDocument(docName) {
+    // TODO AS: Fix that nasty hack, OK?
+    if (docName === '') {
+      return;
+    }
+
     sharejs.open(docName, 'text', function(error, doc) {
       if (error) {
         console.error(error);
