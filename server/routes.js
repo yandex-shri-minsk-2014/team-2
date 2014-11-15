@@ -25,7 +25,7 @@ module.exports = function(app, db) {
   );
 
   app.get('/logout', function(req, res) {
-    req.session.destroy(function (err) {
+    req.session.destroy(function() {
       res.redirect('/');
     });
   });

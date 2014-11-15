@@ -64,31 +64,27 @@ io.on('connection', function(socket) {
   socket.userId = socket.request.session.passport.user._id;
 
   socket.on('connectToRoom', function(roomId) {
-    if (!roomId) {
-      roomId = id();
-      socket.emit('changeRoom', {roomId: roomId});
-    }
-
+    socket.roomId = roomId;
     socket.join(roomId);
+    socket.emit('connectedUserId', {id: socket.userId});
   });
 
   socket.on('userConnect', function(userName) {
     var roomId = socket.roomId;
-    var userId = socket.id;
+    var userId = socket.userId;
 
-    db.room.update.addUser(roomId, {
-      userId: userId,
-      userName: userName
-    }).then(function() {
+    db.room.update.addUser(roomId, userId).then(function() {
       return db.room.getUsers(roomId);
     }).then(function(users) {
       io.to(roomId).emit('usersUpdate', users);
+    }).catch(function(error) {
+      console.log(error);
     });
   });
 
   socket.on('disconnect', function() {
     var roomId = socket.roomId;
-    var userId = socket.id;
+    var userId = socket.userId;
 
     socket.leave(roomId);
 
@@ -120,12 +116,14 @@ io.on('connection', function(socket) {
 
   socket.on('userCursorPosition', function(position) {
     var roomId = socket.roomId;
-    var userId = socket.id;
+    var userId = socket.userId;
 
     db.room.user.setCursor(roomId, userId, position).then(function() {
       return db.room.user.get(roomId, userId);
     }).then(function(user) {
       io.to(roomId).emit('markerUpdate', user);
+    }).catch(function(error) {
+      console.log(error);
     });
   });
 });

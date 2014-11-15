@@ -90,7 +90,7 @@ RoomSchema.methods = {
 
   userSetCursor: function(userId, position, cb) {
     this.users.some(function(user) {
-      if (user.user === userId) {
+      if (user.user == userId) {
         user.userCursor = position;
       }
     });
@@ -120,12 +120,12 @@ roo
 
 RoomSchema.statics = {
   getRoom: function(roomId, cb) {
-    this.findOne({roomId: roomId}, cb);
+    this.findOne({docName: roomId}, cb);
   },
 
   getUsers: function(roomId, cb) {
-    this.findOne({roomId: roomId})
-      .populate('users.user', 'name')
+    this.findOne({docName: roomId})
+      .populate('users.user', 'username')
       .exec(function(err, data) {
         if (err || !data) {
           cb(err, null);
@@ -140,14 +140,14 @@ RoomSchema.statics = {
   },
 
   getUser: function(roomId, userId, cb) {
-    this.findOne({roomId: roomId, 'users.user': userId})
-      .populate('users.user', 'name')
+    this.findOne({docName: roomId, 'users.user': userId})
+      .populate('users.user', 'username')
       .exec(function(err, data) {
         if (err || !data) {
           cb(err, null);
         } else {
           data.users.some(function(user) {
-            if (user.user._id === userId) {
+            if (user.user._id == userId) {
               cb(null, transformUser(user));
             }
           });

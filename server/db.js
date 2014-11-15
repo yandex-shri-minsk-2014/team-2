@@ -4,7 +4,6 @@
 var Promise = require('es6-promise').Promise;
 var RoomModel = require('./models/room');
 var UserModel = require('./models/user');
-var faker = require('Faker');
 
 function createRoom(room, creator) {
   return new Promise(function(resolve, reject) {
@@ -26,7 +25,7 @@ function createRoom(room, creator) {
         } else {
           UserModel.getUser(creator, function(err, user) {
             user.addRoom(room.id);
-          })
+          });
           resolve(room);
         }
       });
@@ -61,34 +60,13 @@ function getUsersFromRoom(roomId) {
   });
 }
 
-function addUserToRoom(roomId, user) {
+function addUserToRoom(roomId, userId) {
   return new Promise(function(resolve, reject) {
-    // пока нет регистрации
-    UserModel.findOne({id: user.userId}, function(err, foundUser) {
-      if (err) {
-        reject(err);
-      } else if (foundUser) {
-        resolve();
-      } else {
-        var person = new UserModel({
-          name: user.userName,
-          id: user.userId,
-          password: faker.Lorem.words(1)[0],
-          // _id: user.userId
-        });
-        person.save(function(err) {
-          if (err) {
-            reject(err);
-          }
-        });
-      }
-    });
-
     RoomModel.getRoom(roomId, function(err, room) {
       if (err) {
         reject(err);
       } else if (room) {
-        room.addUser(user.userId, function(err) {
+        room.addUser(userId, function(err) {
           if (err) {
             reject(err);
           } else {
@@ -96,7 +74,7 @@ function addUserToRoom(roomId, user) {
           }
         });
       } else {
-        reject();
+        reject(new Error('Room not found'));
       }
     });
   });
