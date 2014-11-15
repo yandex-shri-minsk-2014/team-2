@@ -90,7 +90,7 @@ RoomSchema.methods = {
 
   userSetCursor: function(userId, position, cb) {
     this.users.some(function(user) {
-      if (user.user == userId) {
+      if (user.user.toString() === userId.toString()) {
         user.userCursor = position;
       }
     });
@@ -113,7 +113,7 @@ RoomSchema.methods = {
 
   restoreColor: function(color) {
     this.colors.push(color);
-roo
+
     this.save();
   }
 };
@@ -147,7 +147,7 @@ RoomSchema.statics = {
           cb(err, null);
         } else {
           data.users.some(function(user) {
-            if (user.user._id == userId) {
+            if (user.user._id.toString() === userId.toString()) {
               cb(null, transformUser(user));
             }
           });

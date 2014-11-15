@@ -3,6 +3,7 @@
 var socket = require('./socket');
 
 var userId;
+
 socket.on('connectedUserId', function(data) {
   userId = data.id;
 });

@@ -25,7 +25,10 @@ module.exports = function(a) {
 
   function attachToDocument(doc) {
     doc.attach_ace(editor);
-    editor.setReadOnly(false);
+  }
+
+  function editorChangeReadonly(user) {
+    editor.setReadOnly(user.readonly);
   }
 
   function updateCursorMarker(data) {
@@ -81,6 +84,7 @@ module.exports = function(a) {
   return {
     attachToDocument: attachToDocument,
     updateCursorMarker: updateCursorMarker,
-    removeMarker: removeMarker
+    removeMarker: removeMarker,
+    editorChangeReadonly: editorChangeReadonly
   };
 };

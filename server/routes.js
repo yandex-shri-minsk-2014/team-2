@@ -51,14 +51,12 @@ module.exports = function(app, db) {
     });
   });
 
-  app.get('/:id', ensureAuthenticated, function(req, res) {
-    if (!req.user) {
-      res.redirect('/');
-    } else {
-      var name = req.user.username;
+  app.get('/:id', function(req, res) {
+      var name = '';
+      if (req.user) {
+        name = req.user.username;
+      }
       res.render('index', {user: name});
-      // res.sendFile(path.resolve('build/index.html'));
-    }
   });
 
   function ensureAuthenticated(req, res, next) {

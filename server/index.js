@@ -4,11 +4,9 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var settings = require('./../package.json').settings;
 var mongoose = require('./libs/mongoose')();
 var db = require('./db.js');
 var sharejs = require('share');
-var id = require('./libs/idGenerator');
 var passport = require('passport');
 // var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -61,15 +59,30 @@ require('./libs/passportLocal')(passport);
 mongoose.connect();
 
 io.on('connection', function(socket) {
-  socket.userId = socket.request.session.passport.user._id;
+
+  if (socket.request.session.passport) {
+    if (socket.request.session.passport.user) {
+      socket.userId = socket.request.session.passport.user._id;
+      socket.readonly = false;
+    } else {
+      socket.readonly = true;
+    }
+  } else {
+    socket.readonly = true;
+  }
 
   socket.on('connectToRoom', function(roomId) {
     socket.roomId = roomId;
     socket.join(roomId);
     socket.emit('connectedUserId', {id: socket.userId});
+    socket.emit('connectedUserReadonly', {readonly: socket.readonly});
   });
 
-  socket.on('userConnect', function(userName) {
+  socket.on('userConnect', function() {
+    if (socket.readonly) {
+      return;
+    }
+
     var roomId = socket.roomId;
     var userId = socket.userId;
 
@@ -83,10 +96,16 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnect', function() {
+    socket.leave(roomId);
+
+    if (socket.readonly) {
+      return;
+    }
+
+    console.log(socket.readonly);
+
     var roomId = socket.roomId;
     var userId = socket.userId;
-
-    socket.leave(roomId);
 
     io.to(roomId).emit('markerRemove', {userId: userId});
     db.room.update.removeUser(roomId, userId).then(function() {
@@ -96,25 +115,11 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on('verifyUserName', function(userName) {
-    if (settings.debug) {
-      socket.emit('verifyUserNameAnswer', true);
+  socket.on('userCursorPosition', function(position) {
+    if (socket.readonly) {
       return;
     }
 
-    var roomId = socket.roomId;
-
-    db.room.getUsers(roomId).then(function(users) {
-      var founded = users.some(function(user) {
-        return user.userName === userName;
-      });
-      socket.emit('verifyUserNameAnswer', !founded);
-    }).catch(function() {
-      socket.emit('verifyUserNameAnswer', true);
-    });
-  });
-
-  socket.on('userCursorPosition', function(position) {
     var roomId = socket.roomId;
     var userId = socket.userId;
 
