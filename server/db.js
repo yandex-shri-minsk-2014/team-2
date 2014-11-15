@@ -12,7 +12,7 @@ function createRoom(room, creator) {
     var roomDescrip = room.description;
     var roomReadOnly = room.readonly;
     if (!roomName) {
-      reject('Project Name not specified');
+      reject(new Error('Project Name not specified'));
     }
     if (roomReadOnly === 'on') {
       roomReadOnly = true;
@@ -24,7 +24,13 @@ function createRoom(room, creator) {
           reject(err);
         } else {
           UserModel.getUser(creator, function(err, user) {
-            user.addRoom(room.id);
+            if (err) {
+              reject(err);
+            } else if (user) {
+              user.addRoom(room.id);
+            } else {
+              reject(new Error('User does not exist'));
+            }
           });
           resolve(room);
         }
@@ -40,7 +46,7 @@ function getRoom(roomId) {
       } else if (room) {
         resolve(room);
       } else {
-        reject();
+        reject(new Error('Room not found'));
       }
     });
   });
@@ -54,7 +60,7 @@ function getUsersFromRoom(roomId) {
       } else if (foundUsers) {
         resolve(foundUsers);
       } else {
-        reject();
+        reject(new Error('Room does not exist'));
       }
     });
   });
@@ -74,7 +80,7 @@ function addUserToRoom(roomId, userId) {
           }
         });
       } else {
-        reject(new Error('Room not found'));
+        reject(new Error('Room does not exist'));
       }
     });
   });
@@ -90,7 +96,7 @@ function removeUserFromRoom(roomId, userId) {
           resolve(found);
         });
       } else {
-        reject();
+        reject(new Error('Room does not exist'));
       }
     });
   });
@@ -110,7 +116,7 @@ function userUpdateCursorPosition(roomId, userId, cursorPosition) {
           }
         });
       } else {
-        reject();
+        reject(new Error('Room does not exist'));
       }
     });
   });

@@ -77,7 +77,7 @@ RoomSchema.methods = {
     var foundUser = false;
 
     this.users.some(function(user, pos) {
-      if (user.user === userId) {
+      if (user.user.toString() === userId.toString()) {
         _this.restoreColor(user.userColor);
         _this.users.splice(pos, 1);
         foundUser = true;
@@ -156,17 +156,9 @@ RoomSchema.statics = {
   }
 };
 
-RoomSchema.virtual('id')
-  .set(function(id) {
-    this._id = id;
-  })
-  .get(function() {
-    return this._id;
-  });
-
 var transformUser = function(user) {
   var resUser = {};
-  resUser.userId = user.user._id;
+  resUser.userId = user.user._id.toString();
   resUser.userName = user.user.username;
   resUser.userColor = user.userColor;
   resUser.userCursor = user.userCursor;

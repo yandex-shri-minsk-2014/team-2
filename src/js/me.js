@@ -1,7 +1,6 @@
 'use strict';
 
 var socket = require('./socket');
-var $ = require('jquery');
 
 var userId;
 
