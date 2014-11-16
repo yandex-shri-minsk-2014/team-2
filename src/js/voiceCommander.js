@@ -2,7 +2,7 @@
 
 var commands = {
   hello: function() { window.alert('Hello world!'); },
-  'best command': function() { window.alert('Muffin Commandos') }
+  'best command': function() { window.alert('Muffin Commandos'); }
 };
 
 if (annyang) {
